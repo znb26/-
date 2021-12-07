@@ -23,4 +23,107 @@ public class Charge_detail implements Serializable {
     private Date pay_time;//缴费时间
     private String status;//状态：0-生效中（默认），1-已过期
 
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public Integer getCommunity_id() {
+        return community_id;
+    }
+
+    public void setCommunity_id(Integer community_id) {
+        this.community_id = community_id;
+    }
+
+    public String getCommunity_name() {
+        return community_name;
+    }
+
+    public void setCommunity_name(String community_name) {
+        this.community_name = community_name;
+    }
+
+    public Integer getCharge_item_id() {
+        return charge_item_id;
+    }
+
+    public void setCharge_item_id(Integer charge_item_id) {
+        this.charge_item_id = charge_item_id;
+    }
+
+    public String getCharge_item_name() {
+        return charge_item_name;
+    }
+
+    public void setCharge_item_name(String charge_item_name) {
+        this.charge_item_name = charge_item_name;
+    }
+
+    public String getContractor() {
+        return contractor;
+    }
+
+    public void setContractor(String contractor) {
+        this.contractor = contractor;
+    }
+
+    public Integer getTelephone() {
+        return telephone;
+    }
+
+    public void setTelephone(Integer telephone) {
+        this.telephone = telephone;
+    }
+
+    public Integer getPay_money() {
+        return pay_money;
+    }
+
+    public void setPay_money(Integer pay_money) {
+        this.pay_money = pay_money;
+    }
+
+    public Integer getActual_money() {
+        return actual_money;
+    }
+
+    public void setActual_money(Integer actual_money) {
+        this.actual_money = actual_money;
+    }
+
+    public Date getCreate_time() {
+        return create_time;
+    }
+
+    public void setCreate_time(Date create_time) {
+        this.create_time = create_time;
+    }
+
+    public Date getUpdate_time() {
+        return update_time;
+    }
+
+    public void setUpdate_time(Date update_time) {
+        this.update_time = update_time;
+    }
+
+    public Date getPay_time() {
+        return pay_time;
+    }
+
+    public void setPay_time(Date pay_time) {
+        this.pay_time = pay_time;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
 }
