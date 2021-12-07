@@ -1,0 +1,15 @@
+server:
+  port: 80 #项目启动访问端口
+spring:
+  application:
+    name: goods
+  datasource: #连接数据库配置
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/zzd_Property?useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC
+    # url=jdbc:mysql://localhost:3306/book?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=GMT
+    username: root
+    password: 123456
+  servlet:
+    multipart: #文件上传配置
+      max-file-size: 10MB
+      max-request-size: 50MB

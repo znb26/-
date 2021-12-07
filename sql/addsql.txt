@@ -1,0 +1,61 @@
+#活动表
+INSERT INTO `tb_activity`(`community_name`,`community_id`,`title`,`address`,`organizer`,`create_time`,`update_time`,`start_time`,`end_time`)
+VALUES('翻斗花园',30,'红十字互助','A操场','物业','2021-01-01 08:00:00','2021-01-03 08:00:00','2021-01-05 08:00:00','2021-01-15 08:00:00');
+SELECT * FROM `tb_activity`;
+#楼栋表
+INSERT INTO `tb_building`(`community_name`,`community_id`,`name`,`total_households`,`description`,`create_time`,`update_time`)
+VALUES('翻斗花园',30,'A001',100,'描述',NOW(),NOW());
+SELECT * FROM `tb_building`;
+#车辆表
+INSERT INTO `tb_car`(`owner_id`,`color`,`car_number`,`remark`,`create_time`,`update_time`)
+VALUES(1001001,'红色','陕A 88888','备注',NOW(),NOW());
+SELECT * FROM `tb_car`;
+#收费明细表
+INSERT INTO `tb_charge_detail` VALUES(NULL,30,'翻斗花园',200002,'水费','张宁波',10086,10000,9800,NOW(),NOW(),NOW(),'0');
+SELECT * FROM `tb_charge_detail`;
+#收费项目表
+INSERT INTO `tb_charge_item` VALUES(NULL,30,'翻斗花园','200002','水费',NOW(),NOW(),500000);
+SELECT * FROM `tb_charge_item`;
+#小区表
+INSERT INTO `tb_community` VALUES(NULL,'018801','翻斗花园','西安市雁塔区小寨街道',12000.55,26,260,65,NULL,'华侨城','zzd',NOW(),NOW(),NULL);
+SELECT * FROM `tb_community`;
+#投诉表
+INSERT INTO `tb_complaint` VALUES(NULL,'翻斗花园',18801,1001001,'赵毅','停电','停电',NOW(),NOW(),NULL);
+SELECT * FROM `tb_complaint`;
+#设备表
+INSERT INTO `tb_device` VALUES(NULL,'翻斗花园',18801,3001,'电信基站','中国电信',99999,1,10,NOW(),NOW(),NOW());
+SELECT * FROM `tb_device`;
+#物业管理人员表
+INSERT INTO `tb_estate_manager`VALUES(NULL,'翻斗花园',30,'admin','张宁波','000000',10002,'znb@163.com',1,NOW(),NOW());
+SELECT * FROM `tb_estate_manager`;
+#房屋表
+INSERT INTO `tb_house` VALUES(NULL,'翻斗花园',30,'A001',1,'FCBM001','房产名称',1,'董嘉耀',10086,3,1,5,'描述',NOW());
+SELECT * FROM `tb_house`;
+#信件表
+INSERT INTO `tb_letter` VALUES(NULL,30,'翻斗花园',1,'董嘉耀','1','信件标题','信件内容',NOW(),NOW(),'0');
+SELECT * FROM `tb_letter`;
+#业主表
+INSERT INTO `tb_owner` VALUES(NULL,30,1,'赵毅',NULL,'610121199001146352',10086,'教师','0','1',NULL,NOW(),NOW(),'1990-01-14 00:00:00');
+SELECT * FROM `tb_owner`;
+#车位表
+INSERT INTO `tb_parking` VALUES(NULL,'翻斗花园',30,'车位图片','5001','车位名称',NOW(),NOW());
+SELECT * FROM `tb_parking`;
+#车位使用表
+INSERT INTO `tb_parking_use` VALUES(NULL,'翻斗花园',30,'5001','陕A 88888','车辆照片','董嘉耀',1,10086,'0',500000,NOW(),NOW(),NOW(),NOW());
+SELECT * FROM `tb_parking_use`;
+#宠物表
+INSERT INTO `tb_pet` VALUES(NULL,'宠物照片','董嘉耀',1,'黑豹','黑色','狗',NOW(),NOW(),NOW());
+SELECT * FROM `tb_pet`;
+#维修表
+INSERT INTO `tb_repair` VALUES(NULL,'翻斗花园',30,'A001',1,'赵毅',2,'电梯',3002,'电梯不能用',NOW(),NOW(),'0');
+SELECT * FROM `tb_repair`;
+
+
+
+
+
+
+
+
+
+
