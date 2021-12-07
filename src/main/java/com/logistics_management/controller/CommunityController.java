@@ -1,14 +1,17 @@
 package com.logistics_management.controller;
 
+import com.logistics_management.common.PageResult;
 import com.logistics_management.common.Result;
 import com.logistics_management.domain.Community;
 import com.logistics_management.service.CommunityService;
 import com.logistics_management.service.Impl.CommunityServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @Auth: 董嘉耀、张宽、张宁波

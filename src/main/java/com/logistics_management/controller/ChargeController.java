@@ -1,8 +1,7 @@
 package com.logistics_management.controller;
 
 import com.logistics_management.common.Result;
-import com.logistics_management.domain.Charge_item;
-import com.logistics_management.domain.Community;
+import com.logistics_management.domain.ChargeItem;
 import com.logistics_management.service.ChargeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,7 +21,7 @@ public class ChargeController {
 
     @RequestMapping("/find")
     public Result find(){
-        List<Charge_item> all = chargeService.findAll();
-        return new Result(false,200,"请求成功",all);
+        List<ChargeItem> all = chargeService.findAll();
+        return new Result(false,2000,"请求成功",all);
     }
 }
