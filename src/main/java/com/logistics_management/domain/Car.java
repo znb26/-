@@ -14,7 +14,7 @@ public class Car implements Serializable {
     private Integer owner_id;//所属成员（业主）
     private String color;//车辆颜色
     private String car_number;//车牌号
-    private String remmark;//备注
+    private String remark;//备注
     private Date create_time;//创建时间
     private Date update_time;//更新时间
 }
