@@ -49,8 +49,8 @@ SELECT * FROM `tb_pet`;
 #维修表
 INSERT INTO `tb_repair` VALUES(NULL,'翻斗花园',30,'A001',1,'赵毅',2,'电梯',3002,'电梯不能用',NOW(),NOW(),'0');
 SELECT * FROM `tb_repair`;
-
-
+# 张宁波来次一游
+#123133
 
 
 
