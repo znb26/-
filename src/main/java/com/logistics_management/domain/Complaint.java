@@ -10,14 +10,14 @@ import java.util.Date;
 @Table(name="tb_community")
 public class Complaint implements Serializable {
     private Integer id;//投诉id
-    private String community_name;//所属小区名称
-    private Integer community_id;//所属小区id
-    private Integer owner_id;//投诉人员id
-    private String owner_name;//投诉人员名称
+    private String communityName;//所属小区名称
+    private Integer communityId;//所属小区id
+    private Integer ownerId;//投诉人员id
+    private String ownerName;//投诉人员名称
     private String description;//投诉具体描述
     private String reason;//投诉事由
-    private Date create_time;//创建时间
-    private Date update_time;//更新时间
+    private Date createTime;//创建时间
+    private Date updateTime;//更新时间
     private String status;//状态：0-未受理，1-已受理（默认），2-已处理完毕
 
     public Integer getId() {
@@ -28,36 +28,36 @@ public class Complaint implements Serializable {
         this.id = id;
     }
 
-    public String getCommunity_name() {
-        return community_name;
+    public String getCommunityName() {
+        return communityName;
     }
 
-    public void setCommunity_name(String community_name) {
-        this.community_name = community_name;
+    public void setCommunityName(String communityName) {
+        this.communityName = communityName;
     }
 
-    public Integer getCommunity_id() {
-        return community_id;
+    public Integer getCommunityId() {
+        return communityId;
     }
 
-    public void setCommunity_id(Integer community_id) {
-        this.community_id = community_id;
+    public void setCommunityId(Integer communityId) {
+        this.communityId = communityId;
     }
 
-    public Integer getOwner_id() {
-        return owner_id;
+    public Integer getOwnerId() {
+        return ownerId;
     }
 
-    public void setOwner_id(Integer owner_id) {
-        this.owner_id = owner_id;
+    public void setOwnerId(Integer ownerId) {
+        this.ownerId = ownerId;
     }
 
-    public String getOwner_name() {
-        return owner_name;
+    public String getOwnerName() {
+        return ownerName;
     }
 
-    public void setOwner_name(String owner_name) {
-        this.owner_name = owner_name;
+    public void setOwnerName(String ownerName) {
+        this.ownerName = ownerName;
     }
 
     public String getDescription() {
@@ -76,20 +76,20 @@ public class Complaint implements Serializable {
         this.reason = reason;
     }
 
-    public Date getCreate_time() {
-        return create_time;
+    public Date getCreateTime() {
+        return createTime;
     }
 
-    public void setCreate_time(Date create_time) {
-        this.create_time = create_time;
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
     }
 
-    public Date getUpdate_time() {
-        return update_time;
+    public Date getUpdateTime() {
+        return updateTime;
     }
 
-    public void setUpdate_time(Date update_time) {
-        this.update_time = update_time;
+    public void setUpdateTime(Date updateTime) {
+        this.updateTime = updateTime;
     }
 
     public String getStatus() {

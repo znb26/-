@@ -11,12 +11,12 @@ import java.util.Date;
 public class Car implements Serializable {
     private Integer id;//车辆id
     private String picture;//车辆照片
-    private Integer owner_id;//所属成员（业主）
+    private Integer ownerId;//所属成员（业主）
     private String color;//车辆颜色
-    private String car_number;//车牌号
+    private String carNumber;//车牌号
     private String remark;//备注
-    private Date create_time;//创建时间
-    private Date update_time;//更新时间
+    private Date createTime;//创建时间
+    private Date updateTime;//更新时间
 
     public Integer getId() {
         return id;
@@ -34,12 +34,12 @@ public class Car implements Serializable {
         this.picture = picture;
     }
 
-    public Integer getOwner_id() {
-        return owner_id;
+    public Integer getOwnerId() {
+        return ownerId;
     }
 
-    public void setOwner_id(Integer owner_id) {
-        this.owner_id = owner_id;
+    public void setOwnerId(Integer ownerId) {
+        this.ownerId = ownerId;
     }
 
     public String getColor() {
@@ -50,12 +50,12 @@ public class Car implements Serializable {
         this.color = color;
     }
 
-    public String getCar_number() {
-        return car_number;
+    public String getCarNumber() {
+        return carNumber;
     }
 
-    public void setCar_number(String car_number) {
-        this.car_number = car_number;
+    public void setCarNumber(String carNumber) {
+        this.carNumber = carNumber;
     }
 
     public String getRemark() {
@@ -66,19 +66,19 @@ public class Car implements Serializable {
         this.remark = remark;
     }
 
-    public Date getCreate_time() {
-        return create_time;
+    public Date getCreateTime() {
+        return createTime;
     }
 
-    public void setCreate_time(Date create_time) {
-        this.create_time = create_time;
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
     }
 
-    public Date getUpdate_time() {
-        return update_time;
+    public Date getUpdateTime() {
+        return updateTime;
     }
 
-    public void setUpdate_time(Date update_time) {
-        this.update_time = update_time;
+    public void setUpdateTime(Date updateTime) {
+        this.updateTime = updateTime;
     }
 }

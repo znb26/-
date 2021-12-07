@@ -12,13 +12,13 @@ import java.io.Serializable;
 public class Building implements Serializable {
     @Id
     private Integer id;  //楼栋id
-    private String community_name;//所属小区名称
-    private Integer community_id; //所属小区id
+    private String communityName;//所属小区名称
+    private Integer communityId; //所属小区id
     private String name;//楼栋名称
-    private Integer total_households;//总户数
+    private Integer totalHouseholds;//总户数
     private String description;//描述
-    private Date create_time;//创建时间
-    private Date update_time;//更新时间
+    private Date createTime;//创建时间
+    private Date updateTime;//更新时间
 
     public Integer getId() {
         return id;
@@ -28,20 +28,20 @@ public class Building implements Serializable {
         this.id = id;
     }
 
-    public String getCommunity_name() {
-        return community_name;
+    public String getCommunityName() {
+        return communityName;
     }
 
-    public void setCommunity_name(String community_name) {
-        this.community_name = community_name;
+    public void setCommunityName(String communityName) {
+        this.communityName = communityName;
     }
 
-    public Integer getCommunity_id() {
-        return community_id;
+    public Integer getCommunityId() {
+        return communityId;
     }
 
-    public void setCommunity_id(Integer community_id) {
-        this.community_id = community_id;
+    public void setCommunityId(Integer communityId) {
+        this.communityId = communityId;
     }
 
     public String getName() {
@@ -52,12 +52,12 @@ public class Building implements Serializable {
         this.name = name;
     }
 
-    public Integer getTotal_households() {
-        return total_households;
+    public Integer getTotalHouseholds() {
+        return totalHouseholds;
     }
 
-    public void setTotal_households(Integer total_households) {
-        this.total_households = total_households;
+    public void setTotalHouseholds(Integer totalHouseholds) {
+        this.totalHouseholds = totalHouseholds;
     }
 
     public String getDescription() {
@@ -68,19 +68,19 @@ public class Building implements Serializable {
         this.description = description;
     }
 
-    public Date getCreate_time() {
-        return create_time;
+    public Date getCreateTime() {
+        return createTime;
     }
 
-    public void setCreate_time(Date create_time) {
-        this.create_time = create_time;
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
     }
 
-    public Date getUpdate_time() {
-        return update_time;
+    public Date getUpdateTime() {
+        return updateTime;
     }
 
-    public void setUpdate_time(Date update_time) {
-        this.update_time = update_time;
+    public void setUpdateTime(Date updateTime) {
+        this.updateTime = updateTime;
     }
 }

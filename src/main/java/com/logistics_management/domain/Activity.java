@@ -11,15 +11,15 @@ import java.util.Date;
 @Table(name="tb_activity")
 public class Activity implements Serializable {
     private Integer id; //活动ID
-    private String community_name; //所属小区名称
-    private Integer community_id; //所属小区ID
+    private String communityName; //所属小区名称
+    private Integer communityId; //所属小区ID
     private String title;  //活动标题
     private String address; //活动地点
     private String organizer; //举办单位
-    private Date create_time; //创建时间
-    private Date update_time; //更新时间
-    private Date start_time; //活动开始时间
-    private Date end_time; //活动截止时间
+    private Date createTime; //创建时间
+    private Date updateTime; //更新时间
+    private Date startTime; //活动开始时间
+    private Date endTime; //活动截止时间
     private String status; //状态:0-活动未开始（默认），1-活动进行中，2-活动已结束',
 
     public Integer getId() {
@@ -30,20 +30,20 @@ public class Activity implements Serializable {
         this.id = id;
     }
 
-    public String getCommunity_name() {
-        return community_name;
+    public String getCommunityName() {
+        return communityName;
     }
 
-    public void setCommunity_name(String community_name) {
-        this.community_name = community_name;
+    public void setCommunityName(String communityName) {
+        this.communityName = communityName;
     }
 
-    public Integer getCommunity_id() {
-        return community_id;
+    public Integer getCommunityId() {
+        return communityId;
     }
 
-    public void setCommunity_id(Integer community_id) {
-        this.community_id = community_id;
+    public void setCommunityId(Integer communityId) {
+        this.communityId = communityId;
     }
 
     public String getTitle() {
@@ -70,36 +70,36 @@ public class Activity implements Serializable {
         this.organizer = organizer;
     }
 
-    public Date getCreate_time() {
-        return create_time;
+    public Date getCreateTime() {
+        return createTime;
     }
 
-    public void setCreate_time(Date create_time) {
-        this.create_time = create_time;
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
     }
 
-    public Date getUpdate_time() {
-        return update_time;
+    public Date getUpdateTime() {
+        return updateTime;
     }
 
-    public void setUpdate_time(Date update_time) {
-        this.update_time = update_time;
+    public void setUpdateTime(Date updateTime) {
+        this.updateTime = updateTime;
     }
 
-    public Date getStart_time() {
-        return start_time;
+    public Date getStartTime() {
+        return startTime;
     }
 
-    public void setStart_time(Date start_time) {
-        this.start_time = start_time;
+    public void setStartTime(Date startTime) {
+        this.startTime = startTime;
     }
 
-    public Date getEnd_time() {
-        return end_time;
+    public Date getEndTime() {
+        return endTime;
     }
 
-    public void setEnd_time(Date end_time) {
-        this.end_time = end_time;
+    public void setEndTime(Date endTime) {
+        this.endTime = endTime;
     }
 
     public String getStatus() {

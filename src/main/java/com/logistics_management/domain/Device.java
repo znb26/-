@@ -8,7 +8,7 @@ import java.util.Date;
  * create by dongjiayao zhangningbo zhangkuatb_device/7
  */
 @Table(name = "tb_device")
-public class Decice implements Serializable {
+public class Device implements Serializable {
     private Integer id;//设备id
     private String community_name;//所属小区名称
     private Integer community_id;//所属小区id
