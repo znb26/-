@@ -1,5 +1,6 @@
 package com.logistics_management.domain;
 
+import javax.persistence.Id;
 import javax.persistence.Table;
 import java.util.Date;
 import java.io.Serializable;
@@ -9,6 +10,7 @@ import java.io.Serializable;
  */
 @Table(name = "tb_building")
 public class Building implements Serializable {
+    @Id
     private Integer id;  //楼栋id
     private String community_name;//所属小区名称
     private Integer community_id; //所属小区id

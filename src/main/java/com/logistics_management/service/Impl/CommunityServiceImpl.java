@@ -18,6 +18,8 @@ public class CommunityServiceImpl implements CommunityService {
     private CommunityDao communityDao;
     @Override
     public List<Community> findAll() {
-        return communityDao.selectAll();
+        List<Community> list = communityDao.selectAll();
+        return list;
+        //return communityDao.selectAll();
     }
 }
