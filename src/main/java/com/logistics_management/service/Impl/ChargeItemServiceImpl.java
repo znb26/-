@@ -51,18 +51,12 @@ public class ChargeItemServiceImpl implements ChargeItemService {
                 criteria.andLike("name", "%"+(String) searchMap.get("name")+"%");
             }
             //分页
-            if(StringUtil.isNotEmpty((String) searchMap.get("pageNum"))){
-                pageNum = Integer.parseInt((String) searchMap.get("pageNum"));
-            }
-            if(StringUtil.isNotEmpty((String) searchMap.get("pageSize"))){
-                pageSize = Integer.parseInt((String) searchMap.get("pageSize"));
-            }
-            /*if((Integer) searchMap.get("pageNum") !=null){
+            if((Integer) searchMap.get("pageNum") !=null){
                 pageNum = (Integer) searchMap.get("pageNum");
             }
             if((Integer) searchMap.get("pageSize") !=null){
                 pageSize = (Integer) searchMap.get("pageSize");
-            }*/
+            }
         }
         PageHelper.startPage(pageNum,pageSize);//使用PageHelper插件完成分页
         Page<ChargeItem> chargeItems = (Page<ChargeItem>) chargeItemDao.selectByExample(example);

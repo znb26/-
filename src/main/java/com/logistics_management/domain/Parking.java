@@ -7,7 +7,7 @@ import java.util.Date;
 
 /**
  * 车位表实体类
- * 开始
+ * 开始测试
  */
 @Table(name = "tb_parking")
 public class Parking implements Serializable {

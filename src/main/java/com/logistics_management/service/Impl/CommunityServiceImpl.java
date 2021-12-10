@@ -15,6 +15,7 @@ import java.util.Map;
 
 /**
  * create by dongjiayao zhangningbo zhangkuan on 2021/12/6
+ * ok
  */
 @Service
 public class CommunityServiceImpl implements CommunityService {

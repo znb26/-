@@ -4,7 +4,6 @@ import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.util.StringUtil;
 import com.logistics_management.dao.RepairDao;
-import com.logistics_management.domain.Community;
 import com.logistics_management.domain.Repair;
 import com.logistics_management.service.RepairService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +13,9 @@ import tk.mybatis.mapper.entity.Example;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * start
+ */
 @Service
 public class RepairServiceImpl implements RepairService {
     @Autowired
@@ -32,7 +34,7 @@ public class RepairServiceImpl implements RepairService {
     @Override
     public Page<Repair> search(Map searchMap) {
         //通用Mapper多条件搜索，标准写法
-        Example example = new Example(Community.class);//指定查询的表tb_community
+        Example example = new Example(Repair.class);//指定查询的表tb_community
         //1.初始化分页条件
         int pageNum = 1;
         int pageSize = 2;
@@ -48,21 +50,15 @@ public class RepairServiceImpl implements RepairService {
             }
             //名称模糊搜索
             if(StringUtil.isNotEmpty((String) searchMap.get("name"))){
-                criteria.andLike("name", "%"+(String) searchMap.get("name")+"%");
+                criteria.andLike("deviceName", "%"+(String) searchMap.get("name")+"%");
             }
             //分页
-            if(StringUtil.isNotEmpty((String) searchMap.get("pageNum"))){
-                pageNum = Integer.parseInt((String) searchMap.get("pageNum"));
-            }
-            if(StringUtil.isNotEmpty((String) searchMap.get("pageSize"))){
-                pageSize = Integer.parseInt((String) searchMap.get("pageSize"));
-            }
-            /*if((Integer) searchMap.get("pageNum") !=null){
+            if((Integer) searchMap.get("pageNum") !=null){
                 pageNum = (Integer) searchMap.get("pageNum");
             }
             if((Integer) searchMap.get("pageSize") !=null){
                 pageSize = (Integer) searchMap.get("pageSize");
-            }*/
+            }
         }
         PageHelper.startPage(pageNum,pageSize);//使用PageHelper插件完成分页
         Page<Repair> repairs = (Page<Repair>) repairDao.selectByExample(example);

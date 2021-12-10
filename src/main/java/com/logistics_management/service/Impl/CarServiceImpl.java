@@ -13,6 +13,9 @@ import tk.mybatis.mapper.entity.Example;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * ok
+ */
 @Service
 public class CarServiceImpl implements CarService {
 
@@ -46,18 +49,12 @@ public class CarServiceImpl implements CarService {
                 criteria.andLike("carNumber", "%"+(String) searchMap.get("name")+"%");
             }
             //分页
-            if(StringUtil.isNotEmpty((String) searchMap.get("pageNum"))){
-                pageNum = Integer.parseInt((String) searchMap.get("pageNum"));
-            }
-            if(StringUtil.isNotEmpty((String) searchMap.get("pageSize"))){
-                pageSize = Integer.parseInt((String) searchMap.get("pageSize"));
-            }
-            /*if((Integer) searchMap.get("pageNum") !=null){
+            if((Integer) searchMap.get("pageNum") !=null){
                 pageNum = (Integer) searchMap.get("pageNum");
             }
             if((Integer) searchMap.get("pageSize") !=null){
                 pageSize = (Integer) searchMap.get("pageSize");
-            }*/
+            }
         }
         PageHelper.startPage(pageNum,pageSize);//使用PageHelper插件完成分页
         Page<Car> cars = (Page<Car>) carDao.selectByExample(example);
