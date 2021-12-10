@@ -1,14 +1,17 @@
 package com.logistics_management.domain;
 
+import javax.persistence.Id;
 import javax.persistence.Table;
 import java.io.Serializable;
 import java.util.Date;
 
 /**
  * create by dongjiayao zhangningbo zhangkuan on 2021/12/7
+ * 收费项目表
  */
 @Table(name = "tb_charge_item")
 public class ChargeItem implements Serializable {
+    @Id
     private Integer id; //收费项目id
     private Integer communityId;//所属小区id
     private String communityName;//所属小区名

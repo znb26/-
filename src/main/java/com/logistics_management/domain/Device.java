@@ -1,5 +1,6 @@
 package com.logistics_management.domain;
 
+import javax.persistence.Id;
 import javax.persistence.Table;
 import java.io.Serializable;
 import java.util.Date;
@@ -9,6 +10,7 @@ import java.util.Date;
  */
 @Table(name = "tb_device")
 public class Device implements Serializable {
+    @Id
     private Integer id;//设备id
     private String communityName;//所属小区名称
     private Integer communityId;//所属小区id

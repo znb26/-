@@ -2,8 +2,8 @@ package com.logistics_management.domain;
 
 import javax.persistence.Id;
 import javax.persistence.Table;
-import java.util.Date;
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * create by dongjiayao zhangningbo zhangkuan on 2021/12/7

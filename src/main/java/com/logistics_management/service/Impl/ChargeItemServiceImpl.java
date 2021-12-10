@@ -3,9 +3,9 @@ package com.logistics_management.service.Impl;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.util.StringUtil;
-import com.logistics_management.dao.CommunityDao;
-import com.logistics_management.domain.Community;
-import com.logistics_management.service.CommunityService;
+import com.logistics_management.dao.ChargeItemDao;
+import com.logistics_management.domain.ChargeItem;
+import com.logistics_management.service.ChargeItemService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import tk.mybatis.mapper.entity.Example;
@@ -13,24 +13,26 @@ import tk.mybatis.mapper.entity.Example;
 import java.util.List;
 import java.util.Map;
 
-/**
- * create by dongjiayao zhangningbo zhangkuan on 2021/12/6
- */
 @Service
-public class CommunityServiceImpl implements CommunityService {
+public class ChargeItemServiceImpl implements ChargeItemService {
+
     @Autowired
-    private CommunityDao communityDao;
+    private ChargeItemDao chargeItemDao;
+
+    /**
+     * 查询收费项目表
+     * @return
+     */
     @Override
-    public List<Community> findAll() {
-        List<Community> list = communityDao.selectAll();
-        return list;
-        //return communityDao.selectAll();
+    public List<ChargeItem> findAllItem() {
+        return chargeItemDao.selectAll();
     }
 
+
     @Override
-    public Page<Community> search(Map searchMap) {
+    public Page<ChargeItem> search(Map searchMap) {
         //通用Mapper多条件搜索，标准写法
-        Example example = new Example(Community.class);//指定查询的表tb_community
+        Example example = new Example(ChargeItem.class);//指定查询的表tb_community
         //1.初始化分页条件
         int pageNum = 1;
         int pageSize = 2;
@@ -49,74 +51,54 @@ public class CommunityServiceImpl implements CommunityService {
                 criteria.andLike("name", "%"+(String) searchMap.get("name")+"%");
             }
             //分页
-            if((Integer) searchMap.get("pageNum") !=null){
+            if(StringUtil.isNotEmpty((String) searchMap.get("pageNum"))){
+                pageNum = Integer.parseInt((String) searchMap.get("pageNum"));
+            }
+            if(StringUtil.isNotEmpty((String) searchMap.get("pageSize"))){
+                pageSize = Integer.parseInt((String) searchMap.get("pageSize"));
+            }
+            /*if((Integer) searchMap.get("pageNum") !=null){
                 pageNum = (Integer) searchMap.get("pageNum");
             }
             if((Integer) searchMap.get("pageSize") !=null){
                 pageSize = (Integer) searchMap.get("pageSize");
-            }
+            }*/
         }
         PageHelper.startPage(pageNum,pageSize);//使用PageHelper插件完成分页
-        Page<Community> communities = (Page<Community>) communityDao.selectByExample(example);
-        return communities;
+        Page<ChargeItem> chargeItems = (Page<ChargeItem>) chargeItemDao.selectByExample(example);
+        return chargeItems;
     }
 
-
-
-    /**
-     * ok
-     * @param community
-     * @return
-     */
     @Override
-    public Boolean add(Community community) {
-        communityDao.insert(community);
+    public Boolean add(ChargeItem chargeItem) {
+        chargeItemDao.insert(chargeItem);
         return true;
     }
 
-    /**
-     * ok
-     * @param id
-     * @return
-     */
     @Override
-    public Community findById(Integer id) {
-        return communityDao.selectByPrimaryKey(id);
+    public ChargeItem findById(Integer id) {
+        ChargeItem chargeItem = chargeItemDao.selectByPrimaryKey(id);
+        return chargeItem;
     }
 
-    /**
-     * ok
-     * @param community
-     * @return
-     */
     @Override
-    public Boolean update(Community community) {
-        communityDao.updateByPrimaryKeySelective(community);
-        return null;
+    public Boolean update(ChargeItem chargeItem) {
+        chargeItemDao.updateByPrimaryKeySelective(chargeItem);
+        return true;
     }
 
     @Override
     public Boolean updateStatus(String status, Integer id) {
-        Community community = new Community();
-        community.setId(id);
-        community.setStatus(status);
-        int i = communityDao.updateByPrimaryKeySelective(community);
-        if(i > 0){
-            return true;
-        }
-        return false;
+        ChargeItem chargeItem = new ChargeItem();
+        return null;
     }
 
-    /**
-     * 删除根据id删除
-     * @param ids
-     * @return
-     */
     @Override
     public Boolean del(List<Integer> ids) {
         for (Integer id : ids) {
-            communityDao.deleteByPrimaryKey(id);
+            chargeItemDao.deleteByPrimaryKey(id);
         }
         return true;
     }
+
 }

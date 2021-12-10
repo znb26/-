@@ -1,5 +1,6 @@
 package com.logistics_management.domain;
 
+import javax.persistence.Id;
 import javax.persistence.Table;
 import java.io.Serializable;
 import java.util.Date;
@@ -10,6 +11,7 @@ import java.util.Date;
  */
 @Table(name="tb_activity")
 public class Activity implements Serializable {
+    @Id
     private Integer id; //活动ID
     private String communityName; //所属小区名称
     private Integer communityId; //所属小区ID
@@ -20,7 +22,41 @@ public class Activity implements Serializable {
     private Date updateTime; //更新时间
     private Date startTime; //活动开始时间
     private Date endTime; //活动截止时间
-    private String status; //状态:0-活动未开始（默认），1-活动进行中，2-活动已结束',
+    private String status; //状态:0-活动未开始（默认），1-活动进行中，2-活动已结束'
+
+    @Override
+    public String toString() {
+        return "Activity{" +
+                "id=" + id +
+                ", communityName='" + communityName + '\'' +
+                ", communityId=" + communityId +
+                ", title='" + title + '\'' +
+                ", address='" + address + '\'' +
+                ", organizer='" + organizer + '\'' +
+                ", createTime=" + createTime +
+                ", updateTime=" + updateTime +
+                ", startTime=" + startTime +
+                ", endTime=" + endTime +
+                ", status='" + status + '\'' +
+                '}';
+    }
+
+    public Activity() {
+    }
+
+    public Activity(Integer id, String communityName, Integer communityId, String title, String address, String organizer, Date createTime, Date updateTime, Date startTime, Date endTime, String status) {
+        this.id = id;
+        this.communityName = communityName;
+        this.communityId = communityId;
+        this.title = title;
+        this.address = address;
+        this.organizer = organizer;
+        this.createTime = createTime;
+        this.updateTime = updateTime;
+        this.startTime = startTime;
+        this.endTime = endTime;
+        this.status = status;
+    }
 
     public Integer getId() {
         return id;

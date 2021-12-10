@@ -1,11 +1,11 @@
 server:
-  port: 8888 #项目启动访问端口
+  port: 8080 #项目启动访问端口
 spring:
   application:
     name: goods
   datasource: #连接数据库配置
     driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://192.168.227.130:3306/zzd_Property?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=GMT
+    url: jdbc:mysql://192.168.227.131:3306/zzd_Property?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=GMT
     # url=jdbc:mysql://localhost:3306/book?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=GMT
     username: root
     password: znb2550001

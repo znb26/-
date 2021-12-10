@@ -1,5 +1,6 @@
 package com.logistics_management.domain;
 
+import javax.persistence.Id;
 import javax.persistence.Table;
 import java.io.Serializable;
 import java.util.Date;
@@ -9,6 +10,7 @@ import java.util.Date;
  */
 @Table(name = "tb_car")
 public class Car implements Serializable {
+    @Id
     private Integer id;//车辆id
     private String picture;//车辆照片
     private Integer ownerId;//所属成员（业主）
@@ -17,6 +19,34 @@ public class Car implements Serializable {
     private String remark;//备注
     private Date createTime;//创建时间
     private Date updateTime;//更新时间
+
+    @Override
+    public String toString() {
+        return "Car{" +
+                "id=" + id +
+                ", picture='" + picture + '\'' +
+                ", ownerId=" + ownerId +
+                ", color='" + color + '\'' +
+                ", carNumber='" + carNumber + '\'' +
+                ", remark='" + remark + '\'' +
+                ", createTime=" + createTime +
+                ", updateTime=" + updateTime +
+                '}';
+    }
+
+    public Car() {
+    }
+
+    public Car(Integer id, String picture, Integer ownerId, String color, String carNumber, String remark, Date createTime, Date updateTime) {
+        this.id = id;
+        this.picture = picture;
+        this.ownerId = ownerId;
+        this.color = color;
+        this.carNumber = carNumber;
+        this.remark = remark;
+        this.createTime = createTime;
+        this.updateTime = updateTime;
+    }
 
     public Integer getId() {
         return id;

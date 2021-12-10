@@ -5,10 +5,9 @@ import com.logistics_management.common.MessageConstant;
 import com.logistics_management.common.PageResult;
 import com.logistics_management.common.Result;
 import com.logistics_management.common.StatusCode;
-import com.logistics_management.domain.Activity;
-import com.logistics_management.service.ActivityService;
+import com.logistics_management.domain.Car;
+import com.logistics_management.service.CarService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -17,43 +16,44 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * 获得管理对应 - activity_list
+ * 车辆管理对应 —— vehicle_list
  */
 @RestController
-@RequestMapping("/activity")
-public class ActivityController {
+@RequestMapping("/car")
+public class CarController {
+
     @Autowired
-    private ActivityService activityService;
+    private CarService carService;
 
     /**
-     * 查询所有活动
+     * 1
      * @return
      */
     @RequestMapping("/find")
     public Result find(){
-        List<Activity> all = activityService.findAll();
+        List<Car> all = carService.findAll();
         return new Result(false,2000,"请求成功",all);
     }
 
     /**
-     * 分页
+     * 分页查询
      * @param searchMap
      * @return
      */
     @RequestMapping("/search")
     public PageResult search(@RequestBody Map searchMap){
-        Page<Activity> page = activityService.search(searchMap);
-        return new PageResult(true, StatusCode.OK,"查询活动列表成功",page.getResult(),page.getTotal());
+        Page<Car> page = carService.search(searchMap);
+        return new PageResult(true,2000,"查询车辆列表成功",page.getResult(),page.getTotal());
     }
 
     /**
      * 添加活动
      * @return
      */
-    @RequestMapping("/addActivity")
-    public Result addActivity(@RequestBody Activity activity){
+    @RequestMapping("/addCar")
+    public Result addActivity(@RequestBody Car car){
         //Activity activity = new Activity(null,"翻斗花园",30,"红十字互助1","A操场","物业",new Date(),new Date(),new Date(),new Date(),"0");
-        Boolean b = activityService.addActivity(activity);
+        Boolean b = carService.addCar(car);
         return new Result(true, StatusCode.OK, MessageConstant.COMMUNITY_ADD_SUCCESS);
     }
 
@@ -61,33 +61,21 @@ public class ActivityController {
      * 根据id查询活动
      * @return
      */
-    @RequestMapping("/findActivityById")
+    @RequestMapping("/findCar")
     public Result findActivityById(Integer id){
-        Activity activityById = activityService.findActivityById(id);
-        return new Result(true, StatusCode.OK, MessageConstant.COMMUNITY_FIND_BY_ID_SUCCESS,activityById);
+        Car car = carService.findCarById(id);
+        return new Result(true, StatusCode.OK, MessageConstant.COMMUNITY_FIND_BY_ID_SUCCESS,car);
     }
 
     /**
      * 更新
-     * @param activity
+     * @param car
      * @return
      */
-    @RequestMapping("/updateActivity")
-    public Result update(@RequestBody Activity activity){
-        Boolean b = activityService.update(activity);
+    @RequestMapping("/updateCar")
+    public Result update(@RequestBody Car car){
+        Boolean b = carService.update(car);
         return new Result(true, StatusCode.OK, MessageConstant.COMMUNITY_UPDATE_SUCCESS);
-    }
-
-    /**
-     * 更新状态
-     * @param status
-     * @param id
-     * @return
-     */
-    @RequestMapping("/updateStatus/{status}/{id}")
-    public Result updateStatus(@PathVariable("status") String status,@PathVariable("id") Integer id){
-        Boolean b = activityService.updateStatus(status,id);
-        return new Result(true,StatusCode.OK,MessageConstant.COMMUNITY_UPDATE_STATUS_SUCCESS);
     }
 
     /**
@@ -97,7 +85,7 @@ public class ActivityController {
      */
     @RequestMapping("/delete")
     public Result delete(@RequestBody List<Integer> ids){
-        Boolean b = activityService.del(ids);
+        Boolean b = carService.del(ids);
         return new Result(true,StatusCode.OK,MessageConstant.COMMUNITY_DELETE_SUCCESS);
     }
 }
