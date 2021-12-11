@@ -47,7 +47,7 @@ public class ParkingUseController {
      * 根据id查询活动
      * @return
      */
-    @RequestMapping("/find")
+    @RequestMapping("/findById")
     public Result findActivityById(Integer id){
         ParkingUse parkingUse = parkingUseService.findById(id);
         return new Result(true, StatusCode.OK, MessageConstant.COMMUNITY_FIND_BY_ID_SUCCESS,parkingUse);
@@ -55,7 +55,7 @@ public class ParkingUseController {
 
     /**
      * 更新
-     * @param activity
+     * @param
      * @return
      */
     @RequestMapping("/update")

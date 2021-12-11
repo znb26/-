@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <title>
-        活动管理
+        收费明细管理
     </title>
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
@@ -125,6 +125,8 @@
 
         <el-pagination
                 background
+                @size-change="handleSizeChange"
+                @current-change="handleCurrentChange"
                 :page-size="searchMap.pageSize"
                 :page-sizes="[2,10,20]"
                 layout="prev, pager, next,sizes"
@@ -191,6 +193,16 @@
                     this.total = res.data.total;
 
                 });
+            },
+            //handleSizeChange每页数量发生变化触发的方法
+            handleSizeChange(pageSize){
+                this.searchMap.pageSize = pageSize;
+                this.search();
+            },
+            //handleCurrentChange当前页码发生变化
+            handleCurrentChange(pageNum){
+                this.searchMap.pageNum = pageNum;
+                this.search();
             },
             //时间区间发生改变，searcHMap中时间区间条件也要变化
             dateChange(){

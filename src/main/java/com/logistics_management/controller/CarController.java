@@ -43,28 +43,28 @@ public class CarController {
     @RequestMapping("/search")
     public PageResult search(@RequestBody Map searchMap){
         Page<Car> page = carService.search(searchMap);
-        return new PageResult(true,2000,"查询车辆列表成功",page.getResult(),page.getTotal());
+        return new PageResult(true,StatusCode.OK,MessageConstant.VEHICLE_SEARCH_SUCCESS,page.getResult(),page.getTotal());
     }
 
     /**
      * 添加活动
      * @return
      */
-    @RequestMapping("/addCar")
+    @RequestMapping("/add")
     public Result addActivity(@RequestBody Car car){
         //Activity activity = new Activity(null,"翻斗花园",30,"红十字互助1","A操场","物业",new Date(),new Date(),new Date(),new Date(),"0");
         Boolean b = carService.addCar(car);
-        return new Result(true, StatusCode.OK, MessageConstant.COMMUNITY_ADD_SUCCESS);
+        return new Result(true, StatusCode.OK, MessageConstant.VEHICLE_ADD_SUCCESS);
     }
 
     /**
      * 根据id查询活动
      * @return
      */
-    @RequestMapping("/findCar")
+    @RequestMapping("/findById")
     public Result findActivityById(Integer id){
         Car car = carService.findCarById(id);
-        return new Result(true, StatusCode.OK, MessageConstant.COMMUNITY_FIND_BY_ID_SUCCESS,car);
+        return new Result(true, StatusCode.OK, MessageConstant.VEHICLE_FIND_BY_ID_SUCCESS,car);
     }
 
     /**
@@ -72,10 +72,10 @@ public class CarController {
      * @param car
      * @return
      */
-    @RequestMapping("/updateCar")
+    @RequestMapping("/update")
     public Result update(@RequestBody Car car){
         Boolean b = carService.update(car);
-        return new Result(true, StatusCode.OK, MessageConstant.COMMUNITY_UPDATE_SUCCESS);
+        return new Result(true, StatusCode.OK, MessageConstant.VEHICLE_UPDATE_SUCCESS);
     }
 
     /**
@@ -86,6 +86,6 @@ public class CarController {
     @RequestMapping("/delete")
     public Result delete(@RequestBody List<Integer> ids){
         Boolean b = carService.del(ids);
-        return new Result(true,StatusCode.OK,MessageConstant.COMMUNITY_DELETE_SUCCESS);
+        return new Result(true,StatusCode.OK,MessageConstant.VEHICLE_DELETE_SUCCESS);
     }
 }

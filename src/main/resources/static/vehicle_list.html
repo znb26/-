@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <title>
-        活动管理
+        车辆管理
     </title>
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
@@ -22,7 +22,7 @@
             <span class="layui-breadcrumb">
               <a><cite>首页</cite></a>
               <a><cite>服务管理</cite></a>
-              <a><cite>活动列表</cite></a>
+              <a><cite>车辆管理</cite></a>
             </span>
     <a class="layui-btn layui-btn-small" style="line-height:1.6em;margin-top:3px;float:right"  href="javascript:location.replace(location.href);" title="刷新"><i class="layui-icon" style="line-height:30px">ဂ</i></a>
 </div>
@@ -44,7 +44,7 @@
 
         <span class="demonstration">搜索关键字</span>
 
-        <el-input v-model="searchMap.name" style="width: 20%" placeholder="请输入所属成员"></el-input>
+        <el-input v-model="searchMap.name" style="width: 20%" placeholder="请输入车牌号"></el-input>
 
         <el-button type="warning" round @click="searchMap.pageNum=1;search()">搜索</el-button>
     </div>
@@ -53,7 +53,7 @@
         <button class="layui-btn layui-btn-danger" onclick="delAll()">
             <i class="layui-icon">&#xe640;</i>批量删除
         </button>
-        <button class="layui-btn" onclick="activity_add('活动添加','activity_add.html','1000','600')">
+        <button class="layui-btn" @click="activity_add('活动添加','vehicle_add.html','1000','600')">
             <i class="layui-icon">&#xe608;</i>添加
         </button>
         <!-- <span class="x-right" style="line-height:40px">共有数据：<span class="layui-badge">1</span> 条</span></xblock> -->
@@ -102,13 +102,8 @@
                 <td>{{activity.carNumber}}</td>
                 <td>{{activity.remark}}</td>
                 <td >{{dateFormat(activity.createTime)}}</td>
-                <td class="td-status">
-                <span :class="activity.status == 0?'layui-btn layui-btn-normal':'layui-btn layui-btn-disabled'">
-                    {{activity.status == 0?'启用':'停用'}}
-                </span>
-                </td>
                 <td class="td-manage">
-                    <a title="编辑" href="javascript:;" onclick="activity_edit('编辑','activity_add.html','1','1000','600')"
+                    <a title="编辑" href="javascript:;" @click="activity_edit('编辑','vehicle_add.html',activity.id,'1000','600')"
                        class="ml-5" style="text-decoration:none">
                         <i class="layui-icon">&#xe642;</i>
                     </a>
@@ -123,6 +118,8 @@
 
         <el-pagination
                 background
+                @size-change="handleSizeChange"
+                @current-change="handleCurrentChange"
                 :page-size="searchMap.pageSize"
                 :page-sizes="[2,10,20]"
                 layout="prev, pager, next,sizes"
@@ -189,6 +186,16 @@
                     this.total = res.data.total;
 
                 });
+            },
+            //handleSizeChange每页数量发生变化触发的方法
+            handleSizeChange(pageSize){
+                this.searchMap.pageSize = pageSize;
+                this.search();
+            },
+            //handleCurrentChange当前页码发生变化
+            handleCurrentChange(pageNum){
+                this.searchMap.pageNum = pageNum;
+                this.search();
             },
             //时间区间发生改变，searcHMap中时间区间条件也要变化
             dateChange(){

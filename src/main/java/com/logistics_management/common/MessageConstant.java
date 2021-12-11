@@ -24,4 +24,15 @@ public class MessageConstant {
     public static final String SIZE_EXCEEDS__LIMIT = "上传文件大小超过限制!";
     public static final String FILE_TYPE_ERROR = "文件类型错误，只允许上传JPG/PNG/JPEG/GIF等图片类型的文件!";
 
+
+    //---------------------------小区（Vehicle）操作消息提示信息---------------------------------------
+    public static final String VEHICLE_SEARCH_SUCCESS="查询车辆列表信息成功！";
+    public static final String VEHICLE_ADD_SUCCESS="新增车辆信息成功！";
+    public static final String VEHICLE_UPDATE_SUCCESS="修改车辆信息成功！";
+    public static final String VEHICLE_DELETE_SUCCESS="删除车辆信息成功！";
+    public static final String VEHICLE_PIC_UPLOAD_SUCCESS="车辆缩略图上传成功！";
+    public static final String VEHICLE_PIC_DEL_SUCCESS = "车辆缩略图删除成功！";
+    public static final String VEHICLE_FIND_BY_ID_SUCCESS = "根据主键获取车辆对象成功！";
+    public static final String VEHICLE_UPDATE_STATUS_SUCCESS = "车辆状态信息更新成功！";
+
 }

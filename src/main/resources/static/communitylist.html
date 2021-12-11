@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <title>
-        小区列表
+        活动管理
     </title>
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
@@ -53,7 +53,7 @@
         <button class="layui-btn layui-btn-danger" onclick="delAll()">
             <i class="layui-icon">&#xe640;</i>批量删除
         </button>
-        <button class="layui-btn" onclick="activity_add('活动添加','activity_add.html','1000','600')">
+        <button class="layui-btn" @click="activity_add('活动添加','communityadd.html','1000','600')">
             <i class="layui-icon">&#xe608;</i>添加
         </button>
         <!-- <span class="x-right" style="line-height:40px">共有数据：<span class="layui-badge">1</span> 条</span></xblock> -->
@@ -70,25 +70,25 @@
                     小区编号
                 </th>
                 <th>
-                   小区名称
+                    小区名称
                 </th>
                 <th>
-                    小区地址
+                    坐落地址
                 </th>
                 <th>
-                    占地面积
+                    占地面积（m2）
                 </th>
                 <th>
                     总栋数
                 </th>
                 <th>
-                    总租户数
+                    总户数
                 </th>
                 <th>
-                    绿化率
+                    绿化率（%）
                 </th>
                 <th>
-                    缩略题
+                    缩略图
                 </th>
                 <th>
                     开发商名称
@@ -108,39 +108,33 @@
             </tr>
             </thead>
             <tbody>
-            <tr v-for="(community,index) in activityList">
+            <tr v-for="(activity,index) in activityList">
                 <td>
                     <input type="checkbox" value="1" name="">
                 </td>
-                <td>{{community.id}}</td>
-                <td>{{community.code}}</td>
-                <td>{{community.name}}</td>
-                <td>{{community.address}}</td>
-                <td>{{community.area}}</td>
-                <td>{{community.totalBuildings}}</td>
-                <td>{{community.totalHouseholds}}</td>
-                <td>{{community.greeningRate}}</td>
-                <td>
-                    <img :src="urlImg(community.thumbnail)" width="50" height="30" alt="">
-                </td>
-                <td>{{community.developer}}</td>
-                <td>{{community.estateCompany}}</td>
-                <td>{{dateFormat(community.createTime)}}</td>
+                <td>{{activity.id}}</td>
+                <td>{{activity.code}}</td>
+                <td>{{activity.name}}</td>
+                <td>{{activity.address}}</td>
+                <td>{{activity.area}}</td>
+                <td>{{activity.totalBuildings}}</td>
+                <td>{{activity.totalHouseholds}}</td>
+                <td>{{activity.greeningRate}}</td>
+                <td>{{activity.thumbnail}}</td>
+                <td>{{activity.developer}}</td>
+                <td>{{activity.estateCompany}}</td>
+                <td >{{dateFormat(activity.createTime)}}</td>
                 <td class="td-status">
-                <span :class="community.status == 0?'layui-btn layui-btn-normal':'layui-btn layui-btn-disabled'">
-                    {{community.status == 0?'启用':'停用'}}
+                <span :class="activity.status == 0?'layui-btn layui-btn-normal':'layui-btn layui-btn-disabled'">
+                    {{activity.status == 0?'启用':'停用'}}
                 </span>
                 </td>
                 <td class="td-manage">
-                    <a style="text-decoration:none" @click="community.status == 0?admin_stop(community.id):admin_start(community.id)" href="javascript:;" :title="community.status == 0?'停用':'启用'">
-                        <i class="layui-icon" v-if="community.status == 0">&#xe601;</i>
-                        <i class="layui-icon" v-if="community.status == 1">&#xe62f;</i>
-                    </a>
-                    <a title="编辑" href="javascript:;" @click="community_edit('编辑','communityadd.html',community.id,'1000','600')"
+                    <a title="编辑" href="javascript:;" @click="activity_edit('编辑','communityadd.html',activity.id,'1000','600')"
                        class="ml-5" style="text-decoration:none">
                         <i class="layui-icon">&#xe642;</i>
                     </a>
-                    <a title="删除" href="javascript:;" @click="del_one(community.id)"
+                    <a title="删除" href="javascript:;" onclick="activity_del(this,'1')"
                        style="text-decoration:none">
                         <i class="layui-icon">&#xe640;</i>
                     </a>
@@ -151,6 +145,8 @@
 
         <el-pagination
                 background
+                @size-change="handleSizeChange"
+                @current-change="handleCurrentChange"
                 :page-size="searchMap.pageSize"
                 :page-sizes="[2,10,20]"
                 layout="prev, pager, next,sizes"
@@ -212,11 +208,21 @@
         methods:{
             //分页查询校区列表
             search(){
-                axios.post("/activity/search",this.searchMap).then((res) => {
+                axios.post("/community/search",this.searchMap).then((res) => {
                     this.activityList = res.data.data;
                     this.total = res.data.total;
 
                 });
+            },
+            //handleSizeChange每页数量发生变化触发的方法
+            handleSizeChange(pageSize){
+                this.searchMap.pageSize = pageSize;
+                this.search();
+            },
+            //handleCurrentChange当前页码发生变化
+            handleCurrentChange(pageNum){
+                this.searchMap.pageNum = pageNum;
+                this.search();
             },
             //时间区间发生改变，searcHMap中时间区间条件也要变化
             dateChange(){

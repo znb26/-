@@ -22,8 +22,8 @@
 <div class="x-nav">
             <span class="layui-breadcrumb">
               <a><cite>首页</cite></a>
-              <a><cite>会员管理</cite></a>
-              <a><cite>问题/资讯列表</cite></a>
+              <a><cite>停车位管理</cite></a>
+              <a><cite>车位管理</cite></a>
             </span>
     <a class="layui-btn layui-btn-small" style="line-height:1.6em;margin-top:3px;float:right"  href="javascript:location.replace(location.href);" title="刷新"><i class="layui-icon" style="line-height:30px">ဂ</i></a>
 </div>
@@ -54,7 +54,7 @@
         <button class="layui-btn layui-btn-danger" onclick="delAll()">
             <i class="layui-icon">&#xe640;</i>批量删除
         </button>
-        <button class="layui-btn" onclick="activity_add('活动添加','activity_add.html','1000','600')">
+        <button class="layui-btn" @click="activity_add('车位添加','park_add.html','1000','600')">
             <i class="layui-icon">&#xe608;</i>添加
         </button>
         <!-- <span class="x-right" style="line-height:40px">共有数据：<span class="layui-badge">1</span> 条</span></xblock> -->
@@ -103,7 +103,7 @@
                 </span>
                 </td>
                 <td class="td-manage">
-                    <a title="编辑" href="javascript:;" onclick="activity_edit('编辑','activity_add.html','1','1000','600')"
+                    <a title="编辑" href="javascript:;" @click="activity_edit('编辑','park_add.html',activity.id,'1000','600')"
                        class="ml-5" style="text-decoration:none">
                         <i class="layui-icon">&#xe642;</i>
                     </a>
@@ -118,6 +118,8 @@
 
         <el-pagination
                 background
+                @size-change="handleSizeChange"
+                @current-change="handleCurrentChange"
                 :page-size="searchMap.pageSize"
                 :page-sizes="[2,10,20]"
                 layout="prev, pager, next,sizes"
@@ -185,6 +187,16 @@
                     this.total = res.data.total;
 
                 });
+            },
+            //handleSizeChange每页数量发生变化触发的方法
+            handleSizeChange(pageSize){
+                this.searchMap.pageSize = pageSize;
+                this.search();
+            },
+            //handleCurrentChange当前页码发生变化
+            handleCurrentChange(pageNum){
+                this.searchMap.pageNum = pageNum;
+                this.search();
             },
             //时间区间发生改变，searcHMap中时间区间条件也要变化
             dateChange(){
