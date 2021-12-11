@@ -25,7 +25,7 @@ public class MessageConstant {
     public static final String FILE_TYPE_ERROR = "文件类型错误，只允许上传JPG/PNG/JPEG/GIF等图片类型的文件!";
 
 
-    //---------------------------小区（Vehicle）操作消息提示信息---------------------------------------
+    //---------------------------车辆（Vehicle）操作消息提示信息---------------------------------------
     public static final String VEHICLE_SEARCH_SUCCESS="查询车辆列表信息成功！";
     public static final String VEHICLE_ADD_SUCCESS="新增车辆信息成功！";
     public static final String VEHICLE_UPDATE_SUCCESS="修改车辆信息成功！";
@@ -34,5 +34,37 @@ public class MessageConstant {
     public static final String VEHICLE_PIC_DEL_SUCCESS = "车辆缩略图删除成功！";
     public static final String VEHICLE_FIND_BY_ID_SUCCESS = "根据主键获取车辆对象成功！";
     public static final String VEHICLE_UPDATE_STATUS_SUCCESS = "车辆状态信息更新成功！";
+
+    //---------------------------收费项目（ChargeItem）操作消息提示信息---------------------------------------
+    public static final String CHARGE_ITEM_SEARCH_SUCCESS="查询收费项目列表信息成功！";
+    public static final String CHARGE_ITEM_ADD_SUCCESS="新增收费项目信息成功！";
+    public static final String CHARGE_ITEM_UPDATE_SUCCESS="修改收费项目信息成功！";
+    public static final String CHARGE_ITEM_DELETE_SUCCESS="删除收费项目信息成功！";
+    public static final String CHARGE_ITEM_FIND_BY_ID_SUCCESS = "根据主键获取收费项目对象成功！";
+    public static final String CHARGE_ITEM_UPDATE_STATUS_SUCCESS = "收费项目状态信息更新成功！";
+
+    //---------------------------收费项目（ChargeDetail）操作消息提示信息---------------------------------------
+    public static final String CHARGE_DETAIL_SEARCH_SUCCESS="查询收费项目明细列表信息成功！";
+    public static final String CHARGE_DETAIL_ADD_SUCCESS="新增收费项目明细信息成功！";
+    public static final String CHARGE_DETAIL_UPDATE_SUCCESS="修改收费项目明细信息成功！";
+    public static final String CHARGE_DETAIL_DELETE_SUCCESS="删除收费项目明细信息成功！";
+    public static final String CHARGE_DETAIL_FIND_BY_ID_SUCCESS = "根据主键获取收费项目明细对象成功！";
+    public static final String CHARGE_DETAIL_UPDATE_STATUS_SUCCESS = "收费项目明细状态信息更新成功！";
+
+    //---------------------------停车位（Parking）操作消息提示信息---------------------------------------
+    public static final String PARKING_SEARCH_SUCCESS="查询停车位列表信息成功！";
+    public static final String PARKING_ADD_SUCCESS="新增停车位信息成功！";
+    public static final String PARKING_UPDATE_SUCCESS="修改停车位信息成功！";
+    public static final String PARKING_DELETE_SUCCESS="删除停车位信息成功！";
+    public static final String PARKING_FIND_BY_ID_SUCCESS = "根据主键获取停车位对象成功！";
+    public static final String PARKING_UPDATE_STATUS_SUCCESS = "停车位状态信息更新成功！";
+
+    //---------------------------停车位使用（ParkingUse）操作消息提示信息---------------------------------------
+    public static final String PARKING_USE_SEARCH_SUCCESS="查询停车位使用列表信息成功！";
+    public static final String PARKING_USE_ADD_SUCCESS="新增停车位使用信息成功！";
+    public static final String PARKING_USE_UPDATE_SUCCESS="修改停车位使用信息成功！";
+    public static final String PARKING_USE_DELETE_SUCCESS="删除停车位使用信息成功！";
+    public static final String PARKING_USE_FIND_BY_ID_SUCCESS = "根据主键获取停车位使用对象成功！";
+    public static final String PARKING_USE_UPDATE_STATUS_SUCCESS = "停车位使用状态信息更新成功！";
 
 }

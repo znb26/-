@@ -25,7 +25,7 @@ public class ChargeDetailController {
     @RequestMapping("/findAllChargeDetail")
     public Result findAllChargeDetail(){
         List<ChargeDetail> all = chargeDetailService.findAllChargeDetail();
-        return new Result(false,2000,"请求成功",all);
+        return new Result(false,StatusCode.OK,"请求成功",all);
     }
     /**
      * 分页查询
@@ -35,28 +35,28 @@ public class ChargeDetailController {
     @RequestMapping("/search")
     public PageResult search(@RequestBody Map searchMap){
         Page<ChargeDetail> page = chargeDetailService.search(searchMap);
-        return new PageResult(true,2000,"查询小区列表成功",page.getResult(),page.getTotal());
+        return new PageResult(true,StatusCode.OK,MessageConstant.CHARGE_DETAIL_SEARCH_SUCCESS,page.getResult(),page.getTotal());
     }
 
     /**
      * 添加活动
      * @return
      */
-    @RequestMapping("/addChargeDetail")
+    @RequestMapping("/add")
     public Result addActivity(@RequestBody ChargeDetail chargeDetail){
         //Activity activity = new Activity(null,"翻斗花园",30,"红十字互助1","A操场","物业",new Date(),new Date(),new Date(),new Date(),"0");
         Boolean b = chargeDetailService.add(chargeDetail);
-        return new Result(true, StatusCode.OK, MessageConstant.COMMUNITY_ADD_SUCCESS);
+        return new Result(true, StatusCode.OK, MessageConstant.CHARGE_DETAIL_ADD_SUCCESS);
     }
 
     /**
      * 根据id查询活动
      * @return
      */
-    @RequestMapping("/findChargeDetailById")
+    @RequestMapping("/findById")
     public Result findActivityById(Integer id){
         ChargeDetail chargeDetail = chargeDetailService.findById(id);
-        return new Result(true, StatusCode.OK, MessageConstant.COMMUNITY_FIND_BY_ID_SUCCESS,chargeDetail);
+        return new Result(true, StatusCode.OK, MessageConstant.CHARGE_DETAIL_FIND_BY_ID_SUCCESS,chargeDetail);
     }
 
     /**
@@ -64,10 +64,10 @@ public class ChargeDetailController {
      * @param
      * @return
      */
-    @RequestMapping("/updateChargeDetail")
+    @RequestMapping("/update")
     public Result update(@RequestBody ChargeDetail chargeDetail){
         Boolean b = chargeDetailService.update(chargeDetail);
-        return new Result(true, StatusCode.OK, MessageConstant.COMMUNITY_UPDATE_SUCCESS);
+        return new Result(true, StatusCode.OK, MessageConstant.CHARGE_DETAIL_UPDATE_SUCCESS);
     }
 
     /**
@@ -79,7 +79,7 @@ public class ChargeDetailController {
     @RequestMapping("/updateStatus/{status}/{id}")
     public Result updateStatus(@PathVariable("status") String status, @PathVariable("id") Integer id){
         Boolean b = chargeDetailService.updateStatus(status,id);
-        return new Result(true,StatusCode.OK,MessageConstant.COMMUNITY_UPDATE_STATUS_SUCCESS);
+        return new Result(true,StatusCode.OK,MessageConstant.CHARGE_DETAIL_UPDATE_STATUS_SUCCESS);
     }
 
     /**
@@ -90,6 +90,6 @@ public class ChargeDetailController {
     @RequestMapping("/delete")
     public Result delete(@RequestBody List<Integer> ids){
         Boolean b = chargeDetailService.del(ids);
-        return new Result(true,StatusCode.OK,MessageConstant.COMMUNITY_DELETE_SUCCESS);
+        return new Result(true,StatusCode.OK,MessageConstant.CHARGE_DETAIL_DELETE_SUCCESS);
     }
 }

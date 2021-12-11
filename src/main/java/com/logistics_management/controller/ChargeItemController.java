@@ -31,7 +31,7 @@ public class ChargeItemController {
     @RequestMapping("/findItem")
     public Result findItem(){
         List<ChargeItem> all = chargeItemService.findAllItem();
-        return new Result(false,2000,"请求成功",all);
+        return new Result(false,StatusCode.OK,"请求成功",all);
     }
 
     /**
@@ -42,7 +42,7 @@ public class ChargeItemController {
     @RequestMapping("/search")
     public PageResult search(@RequestBody Map searchMap){
         Page<ChargeItem> page = chargeItemService.search(searchMap);
-        return new PageResult(true,2000,"查询小区列表成功",page.getResult(),page.getTotal());
+        return new PageResult(true,StatusCode.OK,MessageConstant.CHARGE_ITEM_SEARCH_SUCCESS,page.getResult(),page.getTotal());
     }
 
     /**
@@ -52,7 +52,7 @@ public class ChargeItemController {
     @RequestMapping("/add")
     public Result addActivity(@RequestBody ChargeItem chargeItem){
         Boolean b = chargeItemService.add(chargeItem);
-        return new Result(true, StatusCode.OK, MessageConstant.COMMUNITY_ADD_SUCCESS);
+        return new Result(true, StatusCode.OK, MessageConstant.CHARGE_ITEM_ADD_SUCCESS);
     }
 
     /**
@@ -62,7 +62,7 @@ public class ChargeItemController {
     @RequestMapping("/findById")
     public Result findActivityById(Integer id){
         ChargeItem chargeItem = chargeItemService.findById(id);
-        return new Result(true, StatusCode.OK, MessageConstant.COMMUNITY_FIND_BY_ID_SUCCESS,chargeItem);
+        return new Result(true, StatusCode.OK, MessageConstant.CHARGE_ITEM_FIND_BY_ID_SUCCESS,chargeItem);
     }
 
     /**
@@ -73,7 +73,7 @@ public class ChargeItemController {
     @RequestMapping("/update")
     public Result update(@RequestBody ChargeItem chargeItem){
         Boolean b = chargeItemService.update(chargeItem);
-        return new Result(true, StatusCode.OK, MessageConstant.COMMUNITY_UPDATE_SUCCESS);
+        return new Result(true, StatusCode.OK, MessageConstant.CHARGE_ITEM_UPDATE_SUCCESS);
     }
 
     /**
@@ -85,7 +85,7 @@ public class ChargeItemController {
     @RequestMapping("/updateStatus/{status}/{id}")
     public Result updateStatus(@PathVariable("status") String status, @PathVariable("id") Integer id){
         Boolean b = chargeItemService.updateStatus(status,id);
-        return new Result(true,StatusCode.OK,MessageConstant.COMMUNITY_UPDATE_STATUS_SUCCESS);
+        return new Result(true,StatusCode.OK,MessageConstant.CHARGE_ITEM_UPDATE_STATUS_SUCCESS);
     }
 
     /**
@@ -96,7 +96,7 @@ public class ChargeItemController {
     @RequestMapping("/delete")
     public Result delete(@RequestBody List<Integer> ids){
         Boolean b = chargeItemService.del(ids);
-        return new Result(true,StatusCode.OK,MessageConstant.COMMUNITY_DELETE_SUCCESS);
+        return new Result(true,StatusCode.OK,MessageConstant.CHARGE_ITEM_DELETE_SUCCESS);
     }
 
 }

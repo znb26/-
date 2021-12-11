@@ -30,7 +30,7 @@ public class ParkingUseController {
     @RequestMapping("/search")
     public PageResult search(@RequestBody Map searchMap){
         Page<ParkingUse> page = parkingUseService.search(searchMap);
-        return new PageResult(true,2000,"查询小区列表成功",page.getResult(),page.getTotal());
+        return new PageResult(true,StatusCode.OK,MessageConstant.PARKING_USE_SEARCH_SUCCESS,page.getResult(),page.getTotal());
     }
 
     /**
@@ -40,7 +40,7 @@ public class ParkingUseController {
     @RequestMapping("/add")
     public Result addActivity(@RequestBody ParkingUse parkingUse){
         Boolean b = parkingUseService.add(parkingUse);
-        return new Result(true, StatusCode.OK, MessageConstant.COMMUNITY_ADD_SUCCESS);
+        return new Result(true, StatusCode.OK, MessageConstant.PARKING_USE_ADD_SUCCESS);
     }
 
     /**
@@ -50,7 +50,7 @@ public class ParkingUseController {
     @RequestMapping("/findById")
     public Result findActivityById(Integer id){
         ParkingUse parkingUse = parkingUseService.findById(id);
-        return new Result(true, StatusCode.OK, MessageConstant.COMMUNITY_FIND_BY_ID_SUCCESS,parkingUse);
+        return new Result(true, StatusCode.OK, MessageConstant.PARKING_USE_FIND_BY_ID_SUCCESS,parkingUse);
     }
 
     /**
@@ -61,7 +61,7 @@ public class ParkingUseController {
     @RequestMapping("/update")
     public Result update(@RequestBody ParkingUse parkingUse){
         Boolean b = parkingUseService.update(parkingUse);
-        return new Result(true, StatusCode.OK, MessageConstant.COMMUNITY_UPDATE_SUCCESS);
+        return new Result(true, StatusCode.OK, MessageConstant.PARKING_USE_UPDATE_SUCCESS);
     }
 
     /**
@@ -73,7 +73,7 @@ public class ParkingUseController {
     @RequestMapping("/updateStatus/{status}/{id}")
     public Result updateStatus(@PathVariable("status") String status, @PathVariable("id") Integer id){
         Boolean b = parkingUseService.updateStatus(status,id);
-        return new Result(true,StatusCode.OK,MessageConstant.COMMUNITY_UPDATE_STATUS_SUCCESS);
+        return new Result(true,StatusCode.OK,MessageConstant.PARKING_USE_UPDATE_STATUS_SUCCESS);
     }
 
     /**
@@ -84,6 +84,6 @@ public class ParkingUseController {
     @RequestMapping("/delete")
     public Result delete(@RequestBody List<Integer> ids){
         Boolean b = parkingUseService.del(ids);
-        return new Result(true,StatusCode.OK,MessageConstant.COMMUNITY_DELETE_SUCCESS);
+        return new Result(true,StatusCode.OK,MessageConstant.PARKING_USE_DELETE_SUCCESS);
     }
 }
