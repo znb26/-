@@ -82,7 +82,7 @@ public class ParkingUseServiceImpl implements ParkingUseService {
     @Override
     public Boolean del(List<Integer> ids) {
         for (Integer id : ids) {
-            parkingUseDao.deleteByExample(id);
+            parkingUseDao.deleteByPrimaryKey(id);
         }
         return true;
     }

@@ -50,10 +50,10 @@
     </div>
     <br>
     <xblock>
-        <button class="layui-btn layui-btn-danger" onclick="delAll()">
+        <button class="layui-btn layui-btn-danger" @click="delAll()">
             <i class="layui-icon">&#xe640;</i>批量删除
         </button>
-        <button class="layui-btn" @click="activity_add('活动添加','vehicle_add.html','1000','600')">
+        <button class="layui-btn" @click="vehicle_add('车辆添加','vehicle_add.html','1000','600')">
             <i class="layui-icon">&#xe608;</i>添加
         </button>
         <!-- <span class="x-right" style="line-height:40px">共有数据：<span class="layui-badge">1</span> 条</span></xblock> -->
@@ -61,7 +61,7 @@
             <thead>
             <tr>
                 <th>
-                    <input type="checkbox" name="" value="">
+                    <input type="checkbox" id="allChecked" :checked="checkedIDs.length===vehicleList.length" @click="allChecked">
                 </th>
                 <th>
                     ID
@@ -91,23 +91,23 @@
             </tr>
             </thead>
             <tbody>
-            <tr v-for="(activity,index) in activityList">
+            <tr v-for="(vehicle,index) in vehicleList">
                 <td>
-                    <input type="checkbox" value="1" name="">
+                    <input type="checkbox" :id="'id'+vehicle.id" :value="vehicle.id" v-model="checkedIDs">
                 </td>
-                <td>{{activity.id}}</td>
-                <td>{{activity.picture}}</td>
-                <td>{{activity.ownerId}}</td>
-                <td>{{activity.color}}</td>
-                <td>{{activity.carNumber}}</td>
-                <td>{{activity.remark}}</td>
-                <td >{{dateFormat(activity.createTime)}}</td>
+                <td>{{vehicle.id}}</td>
+                <td>{{vehicle.picture}}</td>
+                <td>{{vehicle.ownerId}}</td>
+                <td>{{vehicle.color}}</td>
+                <td>{{vehicle.carNumber}}</td>
+                <td>{{vehicle.remark}}</td>
+                <td >{{dateFormat(vehicle.createTime)}}</td>
                 <td class="td-manage">
-                    <a title="编辑" href="javascript:;" @click="activity_edit('编辑','vehicle_add.html',activity.id,'1000','600')"
+                    <a title="编辑" href="javascript:;" @click="vehicle_edit('编辑','vehicle_add.html',vehicle.id,'1000','600')"
                        class="ml-5" style="text-decoration:none">
                         <i class="layui-icon">&#xe642;</i>
                     </a>
-                    <a title="删除" href="javascript:;" onclick="activity_del(this,'1')"
+                    <a title="删除" href="javascript:;" @click="del_one(vehicle.id)"
                        style="text-decoration:none">
                         <i class="layui-icon">&#xe640;</i>
                     </a>
@@ -143,7 +143,7 @@
     var app = new Vue({
         el:"#app",//声明当前vue的作用域
         data:{
-            activityList:[],
+            vehicleList:[],
             checkedIDs:[],
             total:10,
             searchMap:{"startTime":"","endTime":"","name":"","pageNum":1,"pageSize":2},
@@ -182,9 +182,81 @@
             //分页查询校区列表
             search(){
                 axios.post("/car/search",this.searchMap).then((res) => {
-                    this.activityList = res.data.data;
+                    this.vehicleList = res.data.data;
                     this.total = res.data.total;
 
+                });
+            },
+            del_one(id){
+                this.$confirm('请问您是否要删除该车辆信息?', '提示', {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                    type: 'warning'
+                }).then(() => {
+                    //把选中的ID封装到集合中
+                    this.checkedIDs.push(id);
+                    //执行删除操作
+                    axios.post("/car/delete",this.checkedIDs).then((res)=>{
+                        if(res.data.flag){
+                            this.$message({
+                                type: 'success',
+                                message: '删除成功!'
+                            });
+                        }
+                        //删除成功，把选中的ID列表置为空
+                        this.checkedIDs = [];
+                        //把页面置为1，重新获取列表数据
+                        this.searchMap.pageNum = 1;
+                        this.search();
+                    });
+
+                }).catch(() => {
+                    this.$message({
+                        type: 'info',
+                        message: '已取消删除'
+                    });
+                });
+            },
+            //全选、全不选方法
+            allChecked: function () {
+                if (this.checkedIDs.length === this.vehicleList.length) {
+                    // 全不选
+                    this.checkedIDs = [];
+
+                } else {
+                    this.checkedIDs = [];
+                    // 全选
+                    this.vehicleList.forEach( (item) =>{
+                        this.checkedIDs.push(item.id); // 与checkbox的value统一
+                    })
+                }
+            },
+            //多选删除
+            delAll(){
+                this.$confirm('请问您是否要删除选中车辆信息?', '提示', {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                    type: 'warning'
+                }).then(() => {
+                    //执行删除操作
+                    axios.post("/car/delete",this.checkedIDs).then((res)=>{
+                        if(res.data.flag){
+                            this.$message({
+                                type: 'success',
+                                message: '删除成功!'
+                            });
+                        }
+                        //删除成功，把选中的ID列表置为空
+                        this.checkedIDs = [];
+                        //把页面置为1，重新获取列表数据
+                        this.searchMap.pageNum = 1;
+                        this.search();
+                    });
+                }).catch(() => {
+                    this.$message({
+                        type: 'info',
+                        message: '已取消删除'
+                    });
                 });
             },
             //handleSizeChange每页数量发生变化触发的方法
@@ -225,11 +297,11 @@
                 return moment(date).format(format);
             },
             /*添加*/
-            activity_add(title,url,w,h){
+            vehicle_add(title,url,w,h){
                 x_admin_show(title,url,w,h);
             },
             //编辑
-            activity_edit (title,url,id,w,h) {
+            vehicle_edit (title,url,id,w,h) {
                 url = url+"?id="+id;
                 x_admin_show(title,url,w,h);
             },

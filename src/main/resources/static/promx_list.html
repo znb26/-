@@ -50,7 +50,7 @@
     </div>
     <br>
     <xblock>
-        <button class="layui-btn layui-btn-danger" onclick="delAll()">
+        <button class="layui-btn layui-btn-danger" @click="delAll()">
             <i class="layui-icon">&#xe640;</i>批量删除
         </button>
         <button class="layui-btn" @click="activity_add('收费明细添加','promx_add.html','1000','600')">
@@ -61,7 +61,7 @@
             <thead>
             <tr>
                 <th>
-                    <input type="checkbox" name="" value="">
+                    <input type="checkbox" id="allChecked" :checked="checkedIDs.length===activityList.length" @click="allChecked">
                 </th>
                 <th>
                     ID
@@ -98,7 +98,7 @@
             <tbody>
             <tr v-for="(activity,index) in activityList">
                 <td>
-                    <input type="checkbox" value="1" name="">
+                    <input type="checkbox" :id="'id'+activity.id" :value="activity.id" v-model="checkedIDs">
                 </td>
                 <td>{{activity.id}}</td>
                 <td>{{activity.communityName}}</td>
@@ -114,7 +114,7 @@
                        class="ml-5" style="text-decoration:none">
                         <i class="layui-icon">&#xe642;</i>
                     </a>
-                    <a title="删除" href="javascript:;" onclick="activity_del(this,'1')"
+                    <a title="删除" href="javascript:;" @click="del_one(activity.id)"
                        style="text-decoration:none">
                         <i class="layui-icon">&#xe640;</i>
                     </a>
@@ -192,6 +192,78 @@
                     this.activityList = res.data.data;
                     this.total = res.data.total;
 
+                });
+            },
+            del_one(id){
+                this.$confirm('请问您是否要删除该车辆信息?', '提示', {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                    type: 'warning'
+                }).then(() => {
+                    //把选中的ID封装到集合中
+                    this.checkedIDs.push(id);
+                    //执行删除操作
+                    axios.post("/chargeDetail/delete",this.checkedIDs).then((res)=>{
+                        if(res.data.flag){
+                            this.$message({
+                                type: 'success',
+                                message: '删除成功!'
+                            });
+                        }
+                        //删除成功，把选中的ID列表置为空
+                        this.checkedIDs = [];
+                        //把页面置为1，重新获取列表数据
+                        this.searchMap.pageNum = 1;
+                        this.search();
+                    });
+
+                }).catch(() => {
+                    this.$message({
+                        type: 'info',
+                        message: '已取消删除'
+                    });
+                });
+            },
+            //全选、全不选方法
+            allChecked: function () {
+                if (this.checkedIDs.length === this.activityList.length) {
+                    // 全不选
+                    this.checkedIDs = [];
+
+                } else {
+                    this.checkedIDs = [];
+                    // 全选
+                    this.activityList.forEach( (item) =>{
+                        this.checkedIDs.push(item.id); // 与checkbox的value统一
+                    })
+                }
+            },
+            //多选删除
+            delAll(){
+                this.$confirm('请问您是否要删除选中收费明细信息?', '提示', {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                    type: 'warning'
+                }).then(() => {
+                    //执行删除操作
+                    axios.post("/chargeDetail/delete",this.checkedIDs).then((res)=>{
+                        if(res.data.flag){
+                            this.$message({
+                                type: 'success',
+                                message: '删除成功!'
+                            });
+                        }
+                        //删除成功，把选中的ID列表置为空
+                        this.checkedIDs = [];
+                        //把页面置为1，重新获取列表数据
+                        this.searchMap.pageNum = 1;
+                        this.search();
+                    });
+                }).catch(() => {
+                    this.$message({
+                        type: 'info',
+                        message: '已取消删除'
+                    });
                 });
             },
             //handleSizeChange每页数量发生变化触发的方法

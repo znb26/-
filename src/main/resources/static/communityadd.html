@@ -22,7 +22,7 @@
             <span class="layui-breadcrumb">
               <a><cite>首页</cite></a>
               <a><cite>小区管理</cite></a>
-              <a><cite>{{title}}</cite></a>
+              <a><cite>小区添加</cite></a>
             </span>
     <a class="layui-btn layui-btn-small" style="line-height:1.6em;margin-top:3px;float:right"  href="javascript:location.replace(location.href);" title="刷新"><i class="layui-icon" style="line-height:30px">ဂ</i></a>
 </div>
@@ -180,6 +180,7 @@
                 if(this.community.id != null){
                     method = "update"
                 }else{
+                    //community.createTime = new Date().constructor();
                     method = "add"
                 }
                 axios.post("/community/"+method,this.community).then((res)=>{
