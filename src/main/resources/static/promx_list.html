@@ -53,7 +53,7 @@
         <button class="layui-btn layui-btn-danger" @click="delAll()">
             <i class="layui-icon">&#xe640;</i>批量删除
         </button>
-        <button class="layui-btn" @click="activity_add('收费明细添加','promx_add.html','1000','600')">
+        <button class="layui-btn" @click="promx_add('收费明细添加','promx_add.html','1000','600')">
             <i class="layui-icon">&#xe608;</i>添加
         </button>
         <!-- <span class="x-right" style="line-height:40px">共有数据：<span class="layui-badge">1</span> 条</span></xblock> -->
@@ -61,7 +61,7 @@
             <thead>
             <tr>
                 <th>
-                    <input type="checkbox" id="allChecked" :checked="checkedIDs.length===activityList.length" @click="allChecked">
+                    <input type="checkbox" id="allChecked" :checked="checkedIDs.length===promxList.length" @click="allChecked">
                 </th>
                 <th>
                     ID
@@ -96,25 +96,25 @@
             </tr>
             </thead>
             <tbody>
-            <tr v-for="(activity,index) in activityList">
+            <tr v-for="(promx,index) in promxList">
                 <td>
-                    <input type="checkbox" :id="'id'+activity.id" :value="activity.id" v-model="checkedIDs">
+                    <input type="checkbox" :id="'id'+promx.id" :value="promx.id" v-model="checkedIDs">
                 </td>
-                <td>{{activity.id}}</td>
-                <td>{{activity.communityName}}</td>
-                <td>{{activity.chargeItemName}}</td>
-                <td>{{activity.contractor}}</td>
-                <td>{{activity.payMoney}}</td>
-                <td>{{activity.actualMoney}}</td>
-                <td>{{activity.status}}</td>
-                <td>{{dateFormat(activity.payTime)}}</td>
-                <td >{{dateFormat(activity.createTime)}}</td>
+                <td>{{promx.id}}</td>
+                <td>{{promx.communityName}}</td>
+                <td>{{promx.chargeItemName}}</td>
+                <td>{{promx.contractor}}</td>
+                <td>{{promx.payMoney}}</td>
+                <td>{{promx.actualMoney}}</td>
+                <td>{{promx.status}}</td>
+                <td>{{dateFormat(promx.payTime)}}</td>
+                <td >{{dateFormat(promx.createTime)}}</td>
                 <td class="td-manage">
-                    <a title="编辑" href="javascript:;" @click="activity_edit('编辑','promx_add.html',activity.id,'1000','600')"
+                    <a title="编辑" href="javascript:;" @click="promx_edit('编辑','promx_add.html',promx.id,'1000','600')"
                        class="ml-5" style="text-decoration:none">
                         <i class="layui-icon">&#xe642;</i>
                     </a>
-                    <a title="删除" href="javascript:;" @click="del_one(activity.id)"
+                    <a title="删除" href="javascript:;" @click="del_one(promx.id)"
                        style="text-decoration:none">
                         <i class="layui-icon">&#xe640;</i>
                     </a>
@@ -150,7 +150,7 @@
     var app = new Vue({
         el:"#app",//声明当前vue的作用域
         data:{
-            activityList:[],
+            promxList:[],
             checkedIDs:[],
             total:10,
             searchMap:{"startTime":"","endTime":"","name":"","pageNum":1,"pageSize":2},
@@ -189,7 +189,7 @@
             //分页查询校区列表
             search(){
                 axios.post("/chargeDetail/search",this.searchMap).then((res) => {
-                    this.activityList = res.data.data;
+                    this.promxList = res.data.data;
                     this.total = res.data.total;
 
                 });
@@ -226,14 +226,14 @@
             },
             //全选、全不选方法
             allChecked: function () {
-                if (this.checkedIDs.length === this.activityList.length) {
+                if (this.checkedIDs.length === this.promxList.length) {
                     // 全不选
                     this.checkedIDs = [];
 
                 } else {
                     this.checkedIDs = [];
                     // 全选
-                    this.activityList.forEach( (item) =>{
+                    this.promxList.forEach( (item) =>{
                         this.checkedIDs.push(item.id); // 与checkbox的value统一
                     })
                 }
@@ -304,11 +304,11 @@
                 return moment(date).format(format);
             },
             /*添加*/
-            activity_add(title,url,w,h){
+            promx_add(title,url,w,h){
                 x_admin_show(title,url,w,h);
             },
             //编辑
-            activity_edit (title,url,id,w,h) {
+            promx_edit (title,url,id,w,h) {
                 url = url+"?id="+id;
                 x_admin_show(title,url,w,h);
             },
@@ -316,7 +316,7 @@
             admin_stop(id){
                 layer.confirm('确认要停用吗？',function(index){
                     //往后台发送请求，把当前活动状态修改为”停用“
-                    axios.get("/community/updateStatus/1/"+id).then((res)=>{
+                    axios.get("/chargeDetail/updateStatus/1/"+id).then((res)=>{
                         if(res.data.flag){
                             layer.msg('已停用!',{icon: 5,time:1000});
                         }
@@ -329,7 +329,7 @@
             admin_start(id){
                 layer.confirm('确认要启用吗？',function(index){
                     //往后台发送请求，把当前活动状态修改为”启用“
-                    axios.get("/community/updateStatus/0/"+id).then((res)=>{
+                    axios.get("/chargeDetail/updateStatus/0/"+id).then((res)=>{
                         if(res.data.flag){
                             layer.msg('已启用!',{icon: 6,time:1000});
                         }

@@ -28,24 +28,24 @@
     </div>
 
     <div class="x-body">
-        <el-form :model="park" :rules="rules" ref="parkFormRef" label-width="120px" class="demo-ruleForm">
+        <el-form :model="promx" :rules="rules" ref="promxFormRef" label-width="120px" class="demo-ruleForm">
             <el-form-item label="所属小区" prop="communityName">
-                <el-input v-model="park.communityName"></el-input>
+                <el-input v-model="promx.communityName"></el-input>
             </el-form-item>
             <el-form-item label="收费项目名称" prop="chargeItemName">
-                <el-input v-model="park.chargeItemName"></el-input>
+                <el-input v-model="promx.chargeItemName"></el-input>
             </el-form-item>
             <el-form-item label="业主名称" prop="contractor">
-                <el-input v-model="park.contractor"></el-input>
+                <el-input v-model="promx.contractor"></el-input>
             </el-form-item>
             <el-form-item label="应收金额" prop="payMoney">
-                <el-input v-model="park.payMoney"></el-input>
+                <el-input v-model="promx.payMoney"></el-input>
             </el-form-item>
             <el-form-item label="实收金额" prop="actualMoney">
-                <el-input v-model="park.actualMoney"></el-input>
+                <el-input v-model="promx.actualMoney"></el-input>
             </el-form-item>
             <el-form-item label="备注" prop="status">
-                <el-input v-model="park.status"></el-input>
+                <el-input v-model="promx.status"></el-input>
             </el-form-item>
             <el-form-item>
                 <el-button type="primary" @click="save()" style="text-align: center">保存</el-button>
@@ -68,7 +68,7 @@
         el:"#app",
         data:{
             title:"添加车位",
-            park:{thumbnail:"",id:""},
+            promx:{thumbnail:"",id:"",createTime:""},
             fileList:[],
             rules: {
                 communityName: [
@@ -93,17 +93,17 @@
         },
         methods:{
             findById(){
-                axios.get("/chargeDetail/findById?id="+this.park.id).then((res)=>{
-                    this.park = res.data.data;
-                    this.fileList.push({url:"http://localhost/estate"+this.park.thumbnail});
+                axios.get("/chargeDetail/findById?id="+this.promx.id).then((res)=>{
+                    this.promx = res.data.data;
+                    this.fileList.push({url:"http://localhost/estate"+this.promx.thumbnail});
                 });
             },
             handleSuccess(response, file, fileList){
-                this.park.thumbnail=response.data;
+                this.promx.thumbnail=response.data;
             },
             handleRemove() {
-                axios.get("/estate/delfile?fileName="+this.park.thumbnail).then((res)=>{
-                    app.park.thumbnail="";
+                axios.get("/estate/delfile?fileName="+this.promx.thumbnail).then((res)=>{
+                    app.promx.thumbnail="";
                     if(res.data.flag){
                         app.fileList=[];
                         this.$message({
@@ -125,19 +125,20 @@
             },
             //表达重置
             clearAll() {
-                this.$refs.parkFormRef.resetFields();
+                this.$refs.promxFormRef.resetFields();
                 if(this.fileList.length>0) {
                     this.handleRemove();
                 }
             },
             save(){
                 var method = "";
-                if(this.park.id != null){
+                if(this.promx.id != null){
                     method = "update"
                 }else{
+                    this.promx.createTime = new Date();
                     method = "add"
                 }
-                axios.post("/chargeDetail/"+method,this.park).then((res)=>{
+                axios.post("/chargeDetail/"+method,this.promx).then((res)=>{
                     if(res.data.flag){
                         this.$message({
                             message: res.data.message,
@@ -147,7 +148,7 @@
                 });
             },
             imgUrl(){
-                return "http://localhost/estate"+app.park.thumbnail;
+                return "http://localhost/estate"+app.promx.thumbnail;
             },
             getQueryString(name){
                 let reg = `(^|&)${name}=([^&]*)(&|$)`
@@ -164,9 +165,9 @@
                 okLoading.close($);
             });
             //获取父页面传递参数，小区ID
-            this.park.id = this.getQueryString("id");
+            this.promx.id = this.getQueryString("id");
             //根据小区ID获取小区对象，进行数据回显
-            if(this.park.id != null && this.park.id != ''){
+            if(this.promx.id != null && this.promx.id != ''){
                 this.title="修改小区";
                 this.findById();
             }

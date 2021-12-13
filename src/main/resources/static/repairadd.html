@@ -28,21 +28,21 @@
     </div>
 
     <div class="x-body">
-        <el-form :model="park" :rules="rules" ref="parkFormRef" label-width="120px" class="demo-ruleForm">
+        <el-form :model="repair" :rules="rules" ref="repairFormRef" label-width="120px" class="demo-ruleForm">
             <el-form-item label="所属小区" prop="communityName">
-                <el-input v-model="park.communityName"></el-input>
+                <el-input v-model="repair.communityName"></el-input>
             </el-form-item>
             <el-form-item label="保修人员名称" prop="ownerName">
-                <el-input v-model="park.ownerName"></el-input>
+                <el-input v-model="repair.ownerName"></el-input>
             </el-form-item>
             <el-form-item label="设备名称" prop="deviceName">
-                <el-input v-model="park.deviceName"></el-input>
+                <el-input v-model="repair.deviceName"></el-input>
             </el-form-item>
             <el-form-item label="保修描述" prop="description">
-                <el-input v-model="park.description"></el-input>
+                <el-input v-model="repair.description"></el-input>
             </el-form-item>
             <el-form-item label="状态" prop="status">
-                <el-radio-group v-model="park.status">
+                <el-radio-group v-model="repair.status">
                     <el-radio label="0">启用</el-radio>
                     <el-radio label="1">停用</el-radio>
                 </el-radio-group>
@@ -68,7 +68,7 @@
         el:"#app",
         data:{
             title:"添加车位",
-            park:{thumbnail:"",id:""},
+            repair:{thumbnail:"",id:"",createTime:""},
             fileList:[],
             rules: {
                 communityName: [
@@ -90,17 +90,17 @@
         },
         methods:{
             findById(){
-                axios.get("/repair/findById?id="+this.park.id).then((res)=>{
-                    this.park = res.data.data;
-                    this.fileList.push({url:"http://localhost/estate"+this.park.thumbnail});
+                axios.get("/repair/findById?id="+this.repair.id).then((res)=>{
+                    this.repair = res.data.data;
+                    this.fileList.push({url:"http://localhost/estate"+this.repair.thumbnail});
                 });
             },
             handleSuccess(response, file, fileList){
-                this.park.thumbnail=response.data;
+                this.repair.thumbnail=response.data;
             },
             handleRemove() {
-                axios.get("/estate/delfile?fileName="+this.park.thumbnail).then((res)=>{
-                    app.park.thumbnail="";
+                axios.get("/estate/delfile?fileName="+this.repair.thumbnail).then((res)=>{
+                    app.repair.thumbnail="";
                     if(res.data.flag){
                         app.fileList=[];
                         this.$message({
@@ -122,19 +122,20 @@
             },
             //表达重置
             clearAll() {
-                this.$refs.parkFormRef.resetFields();
+                this.$refs.repairFormRef.resetFields();
                 if(this.fileList.length>0) {
                     this.handleRemove();
                 }
             },
             save(){
                 var method = "";
-                if(this.park.id != null){
+                if(this.repair.id != null){
                     method = "update"
                 }else{
+                    this.repair.createTime = new Date();
                     method = "add"
                 }
-                axios.post("/repair/"+method,this.park).then((res)=>{
+                axios.post("/repair/"+method,this.repair).then((res)=>{
                     if(res.data.flag){
                         this.$message({
                             message: res.data.message,
@@ -144,7 +145,7 @@
                 });
             },
             imgUrl(){
-                return "http://localhost/estate"+app.park.thumbnail;
+                return "http://localhost/estate"+app.repair.thumbnail;
             },
             getQueryString(name){
                 let reg = `(^|&)${name}=([^&]*)(&|$)`
@@ -161,9 +162,9 @@
                 okLoading.close($);
             });
             //获取父页面传递参数，小区ID
-            this.park.id = this.getQueryString("id");
+            this.repair.id = this.getQueryString("id");
             //根据小区ID获取小区对象，进行数据回显
-            if(this.park.id != null && this.park.id != ''){
+            if(this.repair.id != null && this.repair.id != ''){
                 this.title="修改小区";
                 this.findById();
             }

@@ -54,15 +54,16 @@
         <button class="layui-btn layui-btn-danger" @click="delAll()">
             <i class="layui-icon">&#xe640;</i>批量删除
         </button>
-        <button class="layui-btn" @click="activity_add('车位使用添加','parkingusageadd.html','1000','600')">
+        <button class="layui-btn" @click="parkingUse_add('车位使用添加','parkingusageadd.html','1000','600')">
             <i class="layui-icon">&#xe608;</i>添加
         </button>
+        <div style="float:right">车位使用性质：0-已购买，1-月租，2-年租</div>
         <!-- <span class="x-right" style="line-height:40px">共有数据：<span class="layui-badge">1</span> 条</span></xblock> -->
         <table class="layui-table">
             <thead>
             <tr>
                 <th>
-                    <input type="checkbox" id="allChecked" :checked="checkedIDs.length===activityList.length" @click="allChecked">
+                    <input type="checkbox" id="allChecked" :checked="checkedIDs.length===parkingUseList.length" @click="allChecked">
                 </th>
                 <th>
                     ID
@@ -75,9 +76,6 @@
                 </th>
                 <th>
                     车牌号码
-                </th>
-                <th>
-                    车辆牌照
                 </th>
                 <th>
                     车辆所有人
@@ -106,28 +104,27 @@
             </tr>
             </thead>
             <tbody>
-            <tr v-for="(activity,index) in activityList">
+            <tr v-for="(parkingUse,index) in parkingUseList">
                 <td>
-                    <input type="checkbox" :id="'id'+activity.id" :value="activity.id" v-model="checkedIDs">
+                    <input type="checkbox" :id="'id'+parkingUse.id" :value="parkingUse.id" v-model="checkedIDs">
                 </td>
-                <td>{{activity.id}}</td>
-                <td>{{activity.communityName}}</td>
-                <td>{{activity.code}}</td>
-                <td>{{activity.carNumber}}</td>
-                <td>{{activity.picture}}</td>
-                <td>{{activity.ownerName}}</td>
-                <td>{{activity.telephone}}</td>
-                <td>{{activity.useType}}</td>
-                <td>{{activity.totalFee}}</td>
-                <td >{{dateFormat(activity.startTime)}}</td>
-                <td >{{dateFormat(activity.endTime)}}</td>
-                <td >{{dateFormat(activity.createTime)}}</td>
+                <td>{{parkingUse.id}}</td>
+                <td>{{parkingUse.communityName}}</td>
+                <td>{{parkingUse.code}}</td>
+                <td>{{parkingUse.carNumber}}</td>
+                <td>{{parkingUse.ownerName}}</td>
+                <td>{{parkingUse.telephone}}</td>
+                <td>{{parkingUse.useType}}</td>
+                <td>{{parkingUse.totalFee}}</td>
+                <td >{{dateFormat(parkingUse.startTime)}}</td>
+                <td >{{dateFormat(parkingUse.endTime)}}</td>
+                <td >{{dateFormat(parkingUse.createTime)}}</td>
                 <td class="td-manage">
-                    <a title="编辑" href="javascript:;" @click="activity_edit('编辑','parkingusageadd.html',activity.id,'1000','600')"
+                    <a title="编辑" href="javascript:;" @click="parkingUse_edit('编辑','parkingusageadd.html',parkingUse.id,'1000','600')"
                        class="ml-5" style="text-decoration:none">
                         <i class="layui-icon">&#xe642;</i>
                     </a>
-                    <a title="删除" href="javascript:;" @click="del_one(activity.id)"
+                    <a title="删除" href="javascript:;" @click="del_one(parkingUse.id)"
                        style="text-decoration:none">
                         <i class="layui-icon">&#xe640;</i>
                     </a>
@@ -164,7 +161,7 @@
     var app = new Vue({
         el:"#app",//声明当前vue的作用域
         data:{
-            activityList:[],
+            parkingUseList:[],
             checkedIDs:[],
             total:10,
             searchMap:{"startTime":"","endTime":"","name":"","pageNum":1,"pageSize":2},
@@ -203,7 +200,7 @@
             //分页查询校区列表
             search(){
                 axios.post("/parkingUse/search",this.searchMap).then((res) => {
-                    this.activityList = res.data.data;
+                    this.parkingUseList = res.data.data;
                     this.total = res.data.total;
 
                 });
@@ -240,14 +237,14 @@
             },
             //全选、全不选方法
             allChecked: function () {
-                if (this.checkedIDs.length === this.activityList.length) {
+                if (this.checkedIDs.length === this.parkingUseList.length) {
                     // 全不选
                     this.checkedIDs = [];
 
                 } else {
                     this.checkedIDs = [];
                     // 全选
-                    this.activityList.forEach( (item) =>{
+                    this.parkingUseList.forEach( (item) =>{
                         this.checkedIDs.push(item.id); // 与checkbox的value统一
                     })
                 }
@@ -318,11 +315,11 @@
                 return moment(date).format(format);
             },
             /*添加*/
-            activity_add(title,url,w,h){
+            parkingUse_add(title,url,w,h){
                 x_admin_show(title,url,w,h);
             },
             //编辑
-            activity_edit (title,url,id,w,h) {
+            parkingUse_edit (title,url,id,w,h) {
                 url = url+"?id="+id;
                 x_admin_show(title,url,w,h);
             },
@@ -330,7 +327,7 @@
             admin_stop(id){
                 layer.confirm('确认要停用吗？',function(index){
                     //往后台发送请求，把当前活动状态修改为”停用“
-                    axios.get("/community/updateStatus/1/"+id).then((res)=>{
+                    axios.get("/parkingUse/updateStatus/1/"+id).then((res)=>{
                         if(res.data.flag){
                             layer.msg('已停用!',{icon: 5,time:1000});
                         }
@@ -343,7 +340,7 @@
             admin_start(id){
                 layer.confirm('确认要启用吗？',function(index){
                     //往后台发送请求，把当前活动状态修改为”启用“
-                    axios.get("/community/updateStatus/0/"+id).then((res)=>{
+                    axios.get("/parkingUse/updateStatus/0/"+id).then((res)=>{
                         if(res.data.flag){
                             layer.msg('已启用!',{icon: 6,time:1000});
                         }

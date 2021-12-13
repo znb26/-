@@ -65,7 +65,7 @@
         el:"#app",
         data:{
             title:"添加车位",
-            park:{thumbnail:"",id:""},
+            park:{thumbnail:"",id:"",createTime:""},
             fileList:[],
             rules: {
                 communityName: [
@@ -126,6 +126,7 @@
                 if(this.park.id != null){
                     method = "update"
                 }else{
+                    this.park.createTime = new Date();
                     method = "add"
                 }
                 axios.post("/parking/"+method,this.park).then((res)=>{

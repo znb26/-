@@ -28,29 +28,29 @@
     </div>
 
     <div class="x-body">
-        <el-form :model="park" :rules="rules" ref="parkFormRef" label-width="120px" class="demo-ruleForm">
+        <el-form :model="parkUse" :rules="rules" ref="parkUseFormRef" label-width="120px" class="demo-ruleForm">
             <el-form-item label="所属小区" prop="communityName">
-                <el-input v-model="park.communityName"></el-input>
+                <el-input v-model="parkUse.communityName"></el-input>
             </el-form-item>
             <el-form-item label="车位编号" prop="code">
-                <el-input v-model="park.code"></el-input>
+                <el-input v-model="parkUse.code"></el-input>
             </el-form-item>
             <el-form-item label="车牌号码" prop="carNumber">
-                <el-input v-model="park.carNumber"></el-input>
+                <el-input v-model="parkUse.carNumber"></el-input>
             </el-form-item>
             <el-form-item label="车位所有人" prop="ownerName">
-                <el-input v-model="park.ownerName"></el-input>
+                <el-input v-model="parkUse.ownerName"></el-input>
             </el-form-item>
             <el-form-item label="联系方式" prop="telephone">
-                <el-input v-model="park.telephone"></el-input>
+                <el-input v-model="parkUse.telephone"></el-input>
             </el-form-item>
             <el-form-item label="使用性质" prop="useType">
-                <el-input v-model="park.useType"></el-input>
+                <el-input v-model="parkUse.useType"></el-input>
             </el-form-item>
             <el-form-item label="总费用" prop="totalFee">
-                <el-input v-model="park.totalFee"></el-input>
+                <el-input v-model="parkUse.totalFee"></el-input>
             </el-form-item>
-            <el-form-item label="车辆照片" prop="thumbnail">
+           <!-- <el-form-item label="车辆照片" prop="thumbnail">
                 <el-upload
                         class="upload-demo"
                         action="/estate/fileupload"
@@ -62,7 +62,7 @@
                     <el-button size="small" type="primary">点击上传</el-button>
                     <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过10M</div>
                 </el-upload>
-            </el-form-item>
+            </el-form-item>-->
             <el-form-item>
                 <el-button type="primary" @click="save()" style="text-align: center">保存</el-button>
                 <el-button @click="clearAll()" style="text-align: center">重置</el-button>
@@ -84,7 +84,7 @@
         el:"#app",
         data:{
             title:"添加车位",
-            park:{thumbnail:"",id:""},
+            parkUse:{thumbnail:"",id:"",createTime:"",updateTime:""},
             fileList:[],
             rules: {
                 communityName: [
@@ -108,24 +108,24 @@
                 totalFee: [
                     { required: true, message: '请输入车位总费用', trigger: 'blur' }
                 ],
-                thumbnail:[
+                /*thumbnail:[
                     { required: true, message: '请上传车位缩略图', trigger: 'change' }
-                ]
+                ]*/
             }
         },
         methods:{
             findById(){
-                axios.get("/parkingUse/findById?id="+this.park.id).then((res)=>{
-                    this.park = res.data.data;
-                    this.fileList.push({url:"http://localhost/estate"+this.park.thumbnail});
+                axios.get("/parkUseingUse/findById?id="+this.parkUse.id).then((res)=>{
+                    this.parkUse = res.data.data;
+                    this.fileList.push({url:"http://localhost/estate"+this.parkUse.thumbnail});
                 });
             },
             handleSuccess(response, file, fileList){
-                this.park.thumbnail=response.data;
+                this.parkUse.thumbnail=response.data;
             },
             handleRemove() {
-                axios.get("/estate/delfile?fileName="+this.park.thumbnail).then((res)=>{
-                    app.park.thumbnail="";
+                axios.get("/estate/delfile?fileName="+this.parkUse.thumbnail).then((res)=>{
+                    app.parkUse.thumbnail="";
                     if(res.data.flag){
                         app.fileList=[];
                         this.$message({
@@ -147,19 +147,22 @@
             },
             //表达重置
             clearAll() {
-                this.$refs.parkFormRef.resetFields();
+                this.$refs.parkUseFormRef.resetFields();
                 if(this.fileList.length>0) {
                     this.handleRemove();
                 }
             },
             save(){
                 var method = "";
-                if(this.park.id != null){
+                if(this.parkUse.id != null){
+                    this.parkUse.updateTime = new Date();
                     method = "update"
                 }else{
+                    this.parkUse.createTimeea = new Date();
+                    this.parkUse.updateTime = new Date();
                     method = "add"
                 }
-                axios.post("/parkingUse/"+method,this.park).then((res)=>{
+                axios.post("/parkUseingUse/"+method,this.parkUse).then((res)=>{
                     if(res.data.flag){
                         this.$message({
                             message: res.data.message,
@@ -169,7 +172,7 @@
                 });
             },
             imgUrl(){
-                return "http://localhost/estate"+app.park.thumbnail;
+                return "http://localhost/estate"+app.parkUse.thumbnail;
             },
             getQueryString(name){
                 let reg = `(^|&)${name}=([^&]*)(&|$)`
@@ -186,9 +189,9 @@
                 okLoading.close($);
             });
             //获取父页面传递参数，小区ID
-            this.park.id = this.getQueryString("id");
+            this.parkUse.id = this.getQueryString("id");
             //根据小区ID获取小区对象，进行数据回显
-            if(this.park.id != null && this.park.id != ''){
+            if(this.parkUse.id != null && this.parkUse.id != ''){
                 this.title="修改小区";
                 this.findById();
             }

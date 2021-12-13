@@ -67,9 +67,6 @@
                     ID
                 </th>
                 <th>
-                    车辆照片
-                </th>
-                <th>
                     所属成员
                 </th>
 
@@ -86,6 +83,9 @@
                     创建时间
                 </th>
                 <th>
+                    更新时间
+                </th>
+                <th>
                     操作
                 </th>
             </tr>
@@ -96,12 +96,12 @@
                     <input type="checkbox" :id="'id'+vehicle.id" :value="vehicle.id" v-model="checkedIDs">
                 </td>
                 <td>{{vehicle.id}}</td>
-                <td>{{vehicle.picture}}</td>
                 <td>{{vehicle.ownerId}}</td>
                 <td>{{vehicle.color}}</td>
                 <td>{{vehicle.carNumber}}</td>
                 <td>{{vehicle.remark}}</td>
                 <td >{{dateFormat(vehicle.createTime)}}</td>
+                <td >{{dateFormat(vehicle.updateTime)}}</td>
                 <td class="td-manage">
                     <a title="编辑" href="javascript:;" @click="vehicle_edit('编辑','vehicle_add.html',vehicle.id,'1000','600')"
                        class="ml-5" style="text-decoration:none">

@@ -54,7 +54,7 @@
         <button class="layui-btn layui-btn-danger" @click="delAll()">
             <i class="layui-icon">&#xe640;</i>批量删除
         </button>
-        <button class="layui-btn" @click="activity_add('车位添加','park_add.html','1000','600')">
+        <button class="layui-btn" @click="parking_add('车位添加','park_add.html','1000','600')">
             <i class="layui-icon">&#xe608;</i>添加
         </button>
         <!-- <span class="x-right" style="line-height:40px">共有数据：<span class="layui-badge">1</span> 条</span></xblock> -->
@@ -62,7 +62,7 @@
             <thead>
             <tr>
                 <th>
-                    <input type="checkbox" id="allChecked" :checked="checkedIDs.length===activityList.length" @click="allChecked">
+                    <input type="checkbox" id="allChecked" :checked="checkedIDs.length===parkingList.length" @click="allChecked">
                 </th>
                 <th>
                     ID
@@ -88,26 +88,26 @@
             </tr>
             </thead>
             <tbody>
-            <tr v-for="(activity,index) in activityList">
+            <tr v-for="(parking,index) in parkingList">
                 <td>
-                    <input type="checkbox" :id="'id'+activity.id" :value="activity.id" v-model="checkedIDs">
+                    <input type="checkbox" :id="'id'+parking.id" :value="parking.id" v-model="checkedIDs">
                 </td>
-                <td>{{activity.id}}</td>
-                <td>{{activity.communityName}}</td>
-                <td>{{activity.code}}</td>
-                <td>{{activity.name}}</td>
-                <td >{{dateFormat(activity.createTime)}}</td>
+                <td>{{parking.id}}</td>
+                <td>{{parking.communityName}}</td>
+                <td>{{parking.code}}</td>
+                <td>{{parking.name}}</td>
+                <td >{{dateFormat(parking.createTime)}}</td>
                 <td class="td-status">
-                <span :class="activity.status == 0?'layui-btn layui-btn-normal':'layui-btn layui-btn-disabled'">
-                    {{activity.status == 0?'启用':'停用'}}
+                <span :class="parking.status == 0?'layui-btn layui-btn-normal':'layui-btn layui-btn-disabled'">
+                    {{parking.status == 0?'启用':'停用'}}
                 </span>
                 </td>
                 <td class="td-manage">
-                    <a title="编辑" href="javascript:;" @click="activity_edit('编辑','park_add.html',activity.id,'1000','600')"
+                    <a title="编辑" href="javascript:;" @click="parking_edit('编辑','park_add.html',parking.id,'1000','600')"
                        class="ml-5" style="text-decoration:none">
                         <i class="layui-icon">&#xe642;</i>
                     </a>
-                    <a title="删除" href="javascript:;" @click="del_one(activity.id)"
+                    <a title="删除" href="javascript:;" @click="del_one(parking.id)"
                        style="text-decoration:none">
                         <i class="layui-icon">&#xe640;</i>
                     </a>
@@ -144,7 +144,7 @@
     var app = new Vue({
         el:"#app",//声明当前vue的作用域
         data:{
-            activityList:[],
+            parkingList:[],
             checkedIDs:[],
             total:10,
             searchMap:{"startTime":"","endTime":"","name":"","pageNum":1,"pageSize":2},
@@ -183,7 +183,7 @@
             //分页查询校区列表
             search(){
                 axios.post("/parking/search",this.searchMap).then((res) => {
-                    this.activityList = res.data.data;
+                    this.parkingList = res.data.data;
                     this.total = res.data.total;
 
                 });
@@ -220,14 +220,14 @@
             },
             //全选、全不选方法
             allChecked: function () {
-                if (this.checkedIDs.length === this.activityList.length) {
+                if (this.checkedIDs.length === this.parkingList.length) {
                     // 全不选
                     this.checkedIDs = [];
 
                 } else {
                     this.checkedIDs = [];
                     // 全选
-                    this.activityList.forEach( (item) =>{
+                    this.parkingList.forEach( (item) =>{
                         this.checkedIDs.push(item.id); // 与checkbox的value统一
                     })
                 }
@@ -298,11 +298,11 @@
                 return moment(date).format(format);
             },
             /*添加*/
-            activity_add(title,url,w,h){
+            parking_add(title,url,w,h){
                 x_admin_show(title,url,w,h);
             },
             //编辑
-            activity_edit (title,url,id,w,h) {
+            parking_edit (title,url,id,w,h) {
                 url = url+"?id="+id;
                 x_admin_show(title,url,w,h);
             },
