@@ -22,7 +22,7 @@
             <span class="layui-breadcrumb">
               <a><cite>首页</cite></a>
               <a><cite>停车位管理</cite></a>
-              <a><cite>{{title}}</cite></a>
+              <a><cite>添加车位使用情况</cite></a>
             </span>
         <a class="layui-btn layui-btn-small" style="line-height:1.6em;margin-top:3px;float:right"  href="javascript:location.replace(location.href);" title="刷新"><i class="layui-icon" style="line-height:30px">ဂ</i></a>
     </div>
@@ -83,7 +83,6 @@
     var app = new Vue({
         el:"#app",
         data:{
-            title:"添加车位",
             parkUse:{thumbnail:"",id:"",createTime:"",updateTime:""},
             fileList:[],
             rules: {
@@ -162,7 +161,7 @@
                     this.parkUse.updateTime = new Date();
                     method = "add"
                 }
-                axios.post("/parkUseingUse/"+method,this.parkUse).then((res)=>{
+                axios.post("/parkingUse/"+method,this.parkUse).then((res)=>{
                     if(res.data.flag){
                         this.$message({
                             message: res.data.message,

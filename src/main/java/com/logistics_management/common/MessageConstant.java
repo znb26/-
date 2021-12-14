@@ -67,4 +67,11 @@ public class MessageConstant {
     public static final String PARKING_USE_FIND_BY_ID_SUCCESS = "根据主键获取停车位使用对象成功！";
     public static final String PARKING_USE_UPDATE_STATUS_SUCCESS = "停车位使用状态信息更新成功！";
 
+    //---------------------------业主（Owner）操作消息提示信息---------------------------------------
+    public static final String Owner_SEARCH_SUCCESS="查询业主列表信息成功！";
+    public static final String Owner_ADD_SUCCESS="新增业主信息成功！";
+    public static final String Owner_UPDATE_SUCCESS="修改业主信息成功！";
+    public static final String Owner_DELETE_SUCCESS="删除业主信息成功！";
+    public static final String Owner_FIND_BY_ID_SUCCESS = "根据主键获取业主对象成功！";
+
 }
