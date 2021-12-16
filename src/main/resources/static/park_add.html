@@ -38,12 +38,6 @@
             <el-form-item label="车位名称" prop="name">
                 <el-input v-model="park.name"></el-input>
             </el-form-item>
-            <el-form-item label="状态" prop="status">
-                <el-radio-group v-model="park.status">
-                    <el-radio label="0">启用</el-radio>
-                    <el-radio label="1">停用</el-radio>
-                </el-radio-group>
-            </el-form-item>
             <el-form-item>
                 <el-button type="primary" @click="save()" style="text-align: center">保存</el-button>
                 <el-button @click="clearAll()" style="text-align: center">重置</el-button>
@@ -65,7 +59,7 @@
         el:"#app",
         data:{
             title:"添加车位",
-            park:{thumbnail:"",id:"",createTime:""},
+            park:{thumbnail:"",id:"",createTime:"",updateTime:""},
             fileList:[],
             rules: {
                 communityName: [
@@ -76,9 +70,6 @@
                 ],
                 name: [
                     { required: true, message: '请输入车位名称', trigger: 'blur' }
-                ],
-                status:[
-                    { required: true, message: '请选择车位状态', trigger: 'change' }
                 ]
             }
         },
@@ -124,9 +115,11 @@
             save(){
                 var method = "";
                 if(this.park.id != null){
+                    this.park.updateTime = new Date();
                     method = "update"
                 }else{
                     this.park.createTime = new Date();
+                    this.park.updateTime = new Date();
                     method = "add"
                 }
                 axios.post("/parking/"+method,this.park).then((res)=>{

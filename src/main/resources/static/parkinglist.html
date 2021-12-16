@@ -80,7 +80,7 @@
                     创建时间
                 </th>
                 <th>
-                    状态
+                    更新时间
                 </th>
                 <th>
                     操作
@@ -97,11 +97,7 @@
                 <td>{{parking.code}}</td>
                 <td>{{parking.name}}</td>
                 <td >{{dateFormat(parking.createTime)}}</td>
-                <td class="td-status">
-                <span :class="parking.status == 0?'layui-btn layui-btn-normal':'layui-btn layui-btn-disabled'">
-                    {{parking.status == 0?'启用':'停用'}}
-                </span>
-                </td>
+                <td >{{dateFormat(parking.updateTime)}}</td>
                 <td class="td-manage">
                     <a title="编辑" href="javascript:;" @click="parking_edit('编辑','park_add.html',parking.id,'1000','600')"
                        class="ml-5" style="text-decoration:none">
@@ -126,6 +122,7 @@
                 style="text-align: center"
                 :total="total">
         </el-pagination>
+        <div style="display:block; height: 200px"></div>
     </xblock>
 </div>
 
